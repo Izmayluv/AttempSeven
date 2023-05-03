@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AttempSeven</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="miUserTitle">User</string>
+    <string name="miMapTitle">Map</string>
+    <string name="miHomeTitle">Home</string>
+    <string name="miPetsTitle">Pets</string>
+    <string name="miNewsFeedTitle">News</string>
+</resources>
