@@ -1,7 +1,11 @@
 package com.example.attempseven.activities
 
+import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.attempseven.R
 import com.example.attempseven.databinding.ActivityMainBinding
@@ -9,23 +13,60 @@ import com.example.attempseven.fragments.PetsFragment
 import com.example.attempseven.fragments.HomeFragment
 import com.example.attempseven.fragments.MapsFragment
 import com.example.attempseven.fragments.UserFragment
+import com.example.attempseven.vm.ViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
+    companion object{
         val petsFragment = PetsFragment()
         val homeFragment = HomeFragment()
         val userFragment = UserFragment()
         val mapsFragment = MapsFragment()
         //val newsFeedFragment = NewsFeedFragment()
+    }
 
-        setCurrentFragment(homeFragment)
+    private lateinit var binding: ActivityMainBinding
+    private val viewModel by viewModels<ViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+
+        setColorStateListForBottomNavMenu(
+            activeColorId =  R.color.itemMenuActive,
+            inactiveColorId = R.color.itemMenuInactive
+        )
+
+        switchingFragments()
+        setCurrentFragment(fragment = homeFragment)
+
+        viewModel.isBottomNavMenuVisible.observe(this) { isVisible ->
+            binding.apply {
+                bottomNavigationView.visibility =
+                    if (isVisible) View.VISIBLE
+                    else View.GONE
+            }
+        }
+    }
+
+    private fun setColorStateListForBottomNavMenu(activeColorId:Int, inactiveColorId:Int){
+        val states = arrayOf(
+            intArrayOf(android.R.attr.state_checked), // checked
+            intArrayOf(-android.R.attr.state_checked) // unchecked
+        )
+        val active = ContextCompat.getColor(this, activeColorId)
+        val inactive = ContextCompat.getColor(this, inactiveColorId)
+
+        val colors = intArrayOf(
+            active, // checked color
+            inactive // unchecked color
+        )
+        val stateList = ColorStateList(states, colors)
+        binding.bottomNavigationView.itemIconTintList = stateList
+    }
+
+    private fun switchingFragments(){
         binding.bottomNavigationView.selectedItemId = R.id.miHome
 
         binding.bottomNavigationView.setOnItemSelectedListener {
@@ -46,10 +87,6 @@ class MainActivity : AppCompatActivity() {
                     setCurrentFragment(mapsFragment)
                     true
                 }
-/*                R.id.miNewsFeed -> {
-                    setCurrentFragment(newsFeedFragment)
-                    true
-                }*/
                 else -> false
             }
         }

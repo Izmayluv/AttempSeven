@@ -4,17 +4,21 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.attempseven.databinding.ItemPetBinding
-import com.example.attempseven.data.PetAdapterDataModel
+import com.example.attempseven.models.DataModel
+import com.example.attempseven.data.ItemTypes.TYPE_HEADER
+import com.example.attempseven.data.ItemTypes.TYPE_PET
 import com.example.attempseven.databinding.ItemHeaderBinding
 import com.example.attempseven.holders.HeaderViewHolder
 import com.example.attempseven.holders.PetViewHolder
+import com.example.attempseven.interfaces.OnItemClickListener
 
-class PetAdapter(
-    private val adapterData: MutableList<PetAdapterDataModel> = mutableListOf<PetAdapterDataModel>()
+class PetsAdapter(
+    private val listener: OnItemClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private lateinit var bindingHeader: ItemHeaderBinding
     private lateinit var bindingPet: ItemPetBinding
+    private val adapterData: MutableList<DataModel> = mutableListOf<DataModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
@@ -46,42 +50,37 @@ class PetAdapter(
             }
         }
 
-    override fun getItemCount(): Int {
-        return adapterData.size
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return when (adapterData[position]) {
-            is PetAdapterDataModel.Pet -> TYPE_PET
-            else -> TYPE_HEADER
-        }
-    }
-
-    fun setData(data: List<PetAdapterDataModel>) {
-        adapterData.apply {
-            clear()
-            addAll(data)
-        }
-    }
-
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
         position: Int
     ) {
         when (holder) {
             is PetViewHolder -> {
-                val pet = adapterData[position] as PetAdapterDataModel.Pet
-                holder.bind(pet)
+                val pet = adapterData[position] as DataModel.ItemPet
+                holder.bind(pet, listener = listener)
             }
             is HeaderViewHolder -> {
-                val header = adapterData[position] as PetAdapterDataModel.Header
+                val header = adapterData[position] as DataModel.ItemHeader
                 holder.bind(header)
             }
         }
     }
 
-    companion object {
-        private const val TYPE_PET = 0
-        private const val TYPE_HEADER = 1
+    override fun getItemViewType(position: Int): Int {
+        return when (adapterData[position]) {
+            is DataModel.ItemPet -> TYPE_PET
+            else -> TYPE_HEADER
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return adapterData.size
+    }
+
+    fun setData(data: List<DataModel>) {
+        adapterData.apply {
+            clear()
+            addAll(data)
+        }
     }
 }
