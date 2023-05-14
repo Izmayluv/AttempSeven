@@ -1,10 +1,12 @@
 package com.example.attempseven.fragments
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
 import com.example.attempseven.MyUtils
 import com.example.attempseven.R
@@ -16,7 +18,7 @@ class SelectedPetFragment : Fragment(R.layout.fragment_selected_pet) {
     private lateinit var binding: FragmentSelectedPetBinding
     private val viewModel by activityViewModels<ViewModel>()
 
-
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,9 +28,9 @@ class SelectedPetFragment : Fragment(R.layout.fragment_selected_pet) {
 
         val pet = viewModel.sharedPet
 
-        val name = "Имя: ${pet?.name}\n"
-        val breed = "Порода: ${pet?.breed}\n"
-        val birthDay = "Дата рождения: ${MyUtils.toSimpleString(pet?.birthDay)}"
+        val name = "${pet?.name}\n"
+        val breed = "${pet?.breed}\n"
+        val birthDay = MyUtils.dateToString(pet?.birthDay)
         val text = name + breed+ birthDay
         binding.apply {
             tv.text = text

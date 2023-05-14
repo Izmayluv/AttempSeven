@@ -9,9 +9,9 @@
         android:title="@string/miPetsTitle"
         android:icon="@drawable/ic_pets"/>
 
-    <item android:id="@+id/miMap"
-        android:title="@string/miMapTitle"
-        android:icon="@drawable/ic_map"/>
+    <item android:id="@+id/miNotifications"
+        android:title="Notifications"
+        android:icon="@drawable/ic_notifications"/>
 
     <item android:id="@+id/miUser"
         android:title="@string/miUserTitle"

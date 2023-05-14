@@ -8,7 +8,8 @@
     <color name="colorCardViewSecondary">#18AD90</color>
     <color name="transparent">#00000000</color>
     <color name="itemMenuActive">#1F2A39</color>
-    <color name="itemMenuInactive">#F2FFF3</color>
-    <color name="background">#8BAFDA</color>
+    <color name="itemMenuInactive">#18AD90</color>
+    <color name="background">#FAFAFA</color>
     <color name="on_surface">#FAFAFA</color>
+    <color name="navBarColor">#EDEDED</color>
 </resources>

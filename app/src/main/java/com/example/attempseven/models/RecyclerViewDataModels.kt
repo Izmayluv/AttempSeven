@@ -2,11 +2,11 @@ package com.example.attempseven.models
 
 import java.util.Date
 
-sealed class DataModel{
+sealed class RecyclerViewDataModels{
 
     data class ItemHeader(
         val title: String
-    ): DataModel()
+    ): RecyclerViewDataModels()
 
     data class ItemHomeStart(
        val text: String,
@@ -14,7 +14,7 @@ sealed class DataModel{
        val imageUrlTwo: String,
        val imageUrlThree: String,
        val imageUrlFour: String
-    ): DataModel()
+    ): RecyclerViewDataModels()
 
     data class ItemPet(
         val name: String,
@@ -22,5 +22,18 @@ sealed class DataModel{
         val birthDay: Date,
         val breed: String,
         val test: String
-    ): DataModel()
+    ): RecyclerViewDataModels()
+
+    data class ItemAppointmentWDoctor(
+        val action: String,
+        val image: String
+    ): RecyclerViewDataModels()
+
+    data class ViewPagerData(
+        val imageUrl: String
+    ): RecyclerViewDataModels()
+
+    data class ItemViewPager(
+        val list: MutableList<ViewPagerData>
+    ): RecyclerViewDataModels()
 }

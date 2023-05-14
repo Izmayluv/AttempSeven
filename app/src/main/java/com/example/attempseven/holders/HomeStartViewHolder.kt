@@ -2,7 +2,7 @@ package com.example.attempseven.holders
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.attempseven.MyUtils
-import com.example.attempseven.models.DataModel
+import com.example.attempseven.models.RecyclerViewDataModels
 import com.example.attempseven.databinding.ItemHomeStartBinding
 
 
@@ -10,7 +10,7 @@ class HomeStartViewHolder(
     var binding: ItemHomeStartBinding
 ): RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(itemHome: DataModel.ItemHomeStart){
+    fun bind(itemHome: RecyclerViewDataModels.ItemHomeStart){
         binding.apply {
             MyUtils.loadImageFromUrl(
                 itemHome.imageUrlOne,

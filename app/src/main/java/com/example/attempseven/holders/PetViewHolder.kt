@@ -1,21 +1,25 @@
 package com.example.attempseven.holders
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.attempseven.MyUtils
-import com.example.attempseven.models.DataModel
+import com.example.attempseven.models.RecyclerViewDataModels
 import com.example.attempseven.databinding.ItemPetBinding
-import com.example.attempseven.interfaces.OnItemClickListener
+import com.example.attempseven.interfaces.RecyclerViewItemClickListener
 
 class PetViewHolder(
     private val binding: ItemPetBinding,
+    private val listener: RecyclerViewItemClickListener
 ): RecyclerView.ViewHolder(
     binding.root
 ){
-    fun bind(pet: DataModel.ItemPet, listener: OnItemClickListener){
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun bind(pet: RecyclerViewDataModels.ItemPet/*, listener: OnItemClickListener*/){
 
         binding.apply {
             tvName.text = pet.name
-            tvAge.text = MyUtils.toSimpleString(pet.birthDay)
+            tvAge.text = MyUtils.currentAge(pet.birthDay)
             tvBreed.text = pet.breed
 
             MyUtils.loadImageFromUrl(
@@ -23,9 +27,13 @@ class PetViewHolder(
                 imageViewCat
             )
 
-            itemView.setOnClickListener {
-                listener.onItemClick(pet)
+            root.setOnClickListener {
+                listener.onRecyclerViewItemClick(adapterPosition)
             }
+
+            /*itemView.setOnClickListener {
+                listener.onItemClick(pet)
+            }*/
         }
     }
 }

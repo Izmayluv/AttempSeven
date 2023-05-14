@@ -3,20 +3,25 @@ package com.example.attempseven.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.attempseven.models.DataModel
+import com.example.attempseven.models.RecyclerViewDataModels
 import com.example.attempseven.data.ItemTypes
+import com.example.attempseven.databinding.ItemButtonRegisterWithDoctorBinding
 import com.example.attempseven.databinding.ItemHeaderBinding
 import com.example.attempseven.databinding.ItemHomeStartBinding
+import com.example.attempseven.holders.ButtonRegisterWithDoctorViewHolder
 import com.example.attempseven.holders.HeaderViewHolder
 import com.example.attempseven.holders.HomeStartViewHolder
+import com.example.attempseven.interfaces.RecyclerViewItemClickListener
 
-class HomePageAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class HomePageAdapter(
+    private val listener: RecyclerViewItemClickListener
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-    private val adapterData: MutableList<DataModel> = mutableListOf<DataModel>()
+    private val adapterData: MutableList<RecyclerViewDataModels> = mutableListOf<RecyclerViewDataModels>()
 
     private lateinit var bindingStart: ItemHomeStartBinding
     private lateinit var bindingHeader: ItemHeaderBinding
-    //private lateinit var bindingPet: ItemPetBinding
+    private lateinit var bindingAppointment: ItemButtonRegisterWithDoctorBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType){
@@ -37,15 +42,15 @@ class HomePageAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                 )
                 HeaderViewHolder(bindingHeader)
             }
-/*
-            ItemTypes.TYPE_PET -> {
-                bindingPet = ItemPetBinding.inflate(
+
+            ItemTypes.TYPE_APPOINTMENT_W_DOCTOR -> {
+                bindingAppointment = ItemButtonRegisterWithDoctorBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                PetViewHolder(bindingPet)
-            }*/
+                ButtonRegisterWithDoctorViewHolder(bindingAppointment, listener)
+            }
 
             else -> {
                 bindingStart = ItemHomeStartBinding.inflate(
@@ -63,9 +68,10 @@ class HomePageAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     override fun getItemViewType(position: Int): Int {
         return when (adapterData[position]) {
-            is DataModel.ItemHomeStart -> ItemTypes.TYPE_START
-            is DataModel.ItemHeader -> ItemTypes.TYPE_HEADER
-            is DataModel.ItemPet -> ItemTypes.TYPE_PET
+            is RecyclerViewDataModels.ItemHomeStart -> ItemTypes.TYPE_START
+            is RecyclerViewDataModels.ItemHeader -> ItemTypes.TYPE_HEADER
+            is RecyclerViewDataModels.ItemAppointmentWDoctor -> ItemTypes.TYPE_APPOINTMENT_W_DOCTOR
+            else -> ItemTypes.TYPE_PET
         }
     }
 
@@ -75,23 +81,24 @@ class HomePageAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     ) {
         when(holder){
             is HeaderViewHolder -> {
-                val header = adapterData[position] as DataModel.ItemHeader
+                val header = adapterData[position] as RecyclerViewDataModels.ItemHeader
                 holder.bind(header)
             }
 
             is HomeStartViewHolder -> {
-                val homeStart = adapterData[position] as DataModel.ItemHomeStart
+                val homeStart = adapterData[position] as RecyclerViewDataModels.ItemHomeStart
                 holder.bind(homeStart)
             }
 
-/*            is PetViewHolder -> {
-                val pet = adapterData[position] as DataModel.ItemPet
-                holder.bind(pet, listener = )
-            }*/
+            is ButtonRegisterWithDoctorViewHolder -> {
+                val appointment = adapterData[position] as RecyclerViewDataModels.ItemAppointmentWDoctor
+                holder.bind(appointment)
+            }
+
         }
     }
 
-    fun setData(data: List<DataModel>) {
+    fun setData(data: List<RecyclerViewDataModels>) {
         adapterData.apply {
             clear()
             addAll(data)

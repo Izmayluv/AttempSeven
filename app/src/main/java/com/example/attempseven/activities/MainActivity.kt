@@ -11,9 +11,10 @@ import com.example.attempseven.R
 import com.example.attempseven.databinding.ActivityMainBinding
 import com.example.attempseven.fragments.PetsFragment
 import com.example.attempseven.fragments.HomeFragment
-import com.example.attempseven.fragments.MapsFragment
+import com.example.attempseven.fragments.NotificationsFragment
 import com.example.attempseven.fragments.UserFragment
 import com.example.attempseven.vm.ViewModel
+import com.yandex.mapkit.MapKitFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         val petsFragment = PetsFragment()
         val homeFragment = HomeFragment()
         val userFragment = UserFragment()
-        val mapsFragment = MapsFragment()
+        val notificationsFragment = NotificationsFragment()
         //val newsFeedFragment = NewsFeedFragment()
     }
 
@@ -32,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        MapKitFactory.setApiKey("2e3ccb1e-23b2-4242-bdf3-f879bccfea7e")
 
         setColorStateListForBottomNavMenu(
             activeColorId =  R.color.itemMenuActive,
@@ -83,8 +86,8 @@ class MainActivity : AppCompatActivity() {
                     setCurrentFragment(userFragment)
                     true
                 }
-                R.id.miMap -> {
-                    setCurrentFragment(mapsFragment)
+                R.id.miNotifications -> {
+                    setCurrentFragment(notificationsFragment)
                     true
                 }
                 else -> false
