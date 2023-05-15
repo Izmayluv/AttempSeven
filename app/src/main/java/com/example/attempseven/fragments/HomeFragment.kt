@@ -13,7 +13,7 @@ import com.example.attempseven.adapters.GridItemDecoration
 import com.example.attempseven.adapters.HomePageAdapter
 import com.example.attempseven.databinding.FragmentHomeBinding
 import com.example.attempseven.interfaces.RecyclerViewItemClickListener
-import com.example.attempseven.vm.ViewModel
+import com.example.attempseven.viewmodels.ViewModel
 
 class HomeFragment : Fragment(R.layout.fragment_home), RecyclerViewItemClickListener{
 

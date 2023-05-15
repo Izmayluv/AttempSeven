@@ -13,7 +13,7 @@ import com.example.attempseven.adapters.PetsAdapter
 import com.example.attempseven.models.RecyclerViewDataModels
 import com.example.attempseven.databinding.FragmentPetsBinding
 import com.example.attempseven.interfaces.RecyclerViewItemClickListener
-import com.example.attempseven.vm.ViewModel
+import com.example.attempseven.viewmodels.ViewModel
 
 class PetsFragment : Fragment(R.layout.fragment_pets), RecyclerViewItemClickListener {
 

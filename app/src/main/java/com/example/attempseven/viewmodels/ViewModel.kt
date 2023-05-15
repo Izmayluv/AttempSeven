@@ -1,4 +1,4 @@
-package com.example.attempseven.vm
+package com.example.attempseven.viewmodels
 
 import android.app.Activity
 import androidx.core.content.ContextCompat

@@ -1,4 +1,4 @@
-package com.example.attempseven.holders
+package com.example.attempseven.viewholders
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.attempseven.models.RecyclerViewDataModels

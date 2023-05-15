@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
-import com.example.attempseven.MyUtils
+import com.example.attempseven.utils.MyUtils
 import com.example.attempseven.R
 import com.example.attempseven.databinding.FragmentSelectedPetBinding
-import com.example.attempseven.vm.ViewModel
+import com.example.attempseven.viewmodels.ViewModel
 
 class SelectedPetFragment : Fragment(R.layout.fragment_selected_pet) {
 

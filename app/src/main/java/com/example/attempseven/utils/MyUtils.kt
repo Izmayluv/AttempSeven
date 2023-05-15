@@ -1,8 +1,10 @@
-package com.example.attempseven
+package com.example.attempseven.utils
 
 import android.os.Build
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
+import com.example.attempseven.GlideApp
+import com.example.attempseven.R
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.ZoneId

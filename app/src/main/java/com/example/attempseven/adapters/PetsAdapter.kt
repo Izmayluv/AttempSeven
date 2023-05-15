@@ -11,8 +11,8 @@ import com.example.attempseven.models.RecyclerViewDataModels
 import com.example.attempseven.data.ItemTypes.HEADER
 import com.example.attempseven.data.ItemTypes.PET
 import com.example.attempseven.databinding.ItemHeaderBinding
-import com.example.attempseven.holders.HeaderViewHolder
-import com.example.attempseven.holders.PetViewHolder
+import com.example.attempseven.viewholders.HeaderViewHolder
+import com.example.attempseven.viewholders.PetViewHolder
 import com.example.attempseven.interfaces.RecyclerViewItemClickListener
 
 class PetsAdapter(

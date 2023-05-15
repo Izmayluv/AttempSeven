@@ -109,14 +109,14 @@ class Repository {
         )
     )
 
-    val inputListServices = mutableListOf(
+    private val inputListServices = mutableListOf(
         RecyclerViewDataModels.ItemHeader(
             "Выберите услугу"
         ),
         RecyclerViewDataModels.ItemService(
             "Первичный осмотр",
             "В ходе обследования врач выполняет осмотр. На основании полученных данных проконсультирует владельца о необходимых в дальнейшем действиях.",
-            "https://docs.google.com/uc?id=1jqKbtJUYtZE5SKuoGSxUHVHvJRymbAF_"
+            "https://zoostatus.ru/upload/zoostatus-articles-foto/pervichniy_osmotr/pervichnii_osmotr_1.jpg"
         )
     )
 }

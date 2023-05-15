@@ -1,9 +1,9 @@
-package com.example.attempseven.holders
+package com.example.attempseven.viewholders
 
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import com.example.attempseven.MyUtils
+import com.example.attempseven.utils.MyUtils
 import com.example.attempseven.models.RecyclerViewDataModels
 import com.example.attempseven.databinding.ItemPetBinding
 import com.example.attempseven.interfaces.RecyclerViewItemClickListener

@@ -12,10 +12,9 @@ import com.example.attempseven.databinding.ActivityMainBinding
 import com.example.attempseven.fragments.ChooseServiceFragment
 import com.example.attempseven.fragments.PetsFragment
 import com.example.attempseven.fragments.HomeFragment
-import com.example.attempseven.fragments.MapsFragment
 import com.example.attempseven.fragments.NotificationsFragment
 import com.example.attempseven.fragments.UserFragment
-import com.example.attempseven.vm.ViewModel
+import com.example.attempseven.viewmodels.ViewModel
 import com.yandex.mapkit.MapKitFactory
 
 class MainActivity : AppCompatActivity() {

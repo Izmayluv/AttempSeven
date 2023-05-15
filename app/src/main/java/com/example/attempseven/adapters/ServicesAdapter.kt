@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.attempseven.data.ItemTypes
 import com.example.attempseven.databinding.ItemHeaderBinding
 import com.example.attempseven.databinding.ItemServiceBinding
-import com.example.attempseven.holders.HeaderViewHolder
-import com.example.attempseven.holders.ServiceViewHolder
+import com.example.attempseven.viewholders.HeaderViewHolder
+import com.example.attempseven.viewholders.ServiceViewHolder
 import com.example.attempseven.interfaces.RecyclerViewItemClickListener
 import com.example.attempseven.models.RecyclerViewDataModels
 

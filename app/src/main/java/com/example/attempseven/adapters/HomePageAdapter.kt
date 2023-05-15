@@ -8,9 +8,9 @@ import com.example.attempseven.data.ItemTypes
 import com.example.attempseven.databinding.ItemButtonRegisterWithDoctorBinding
 import com.example.attempseven.databinding.ItemHeaderBinding
 import com.example.attempseven.databinding.ItemHomeStartBinding
-import com.example.attempseven.holders.ButtonRegisterWithDoctorViewHolder
-import com.example.attempseven.holders.HeaderViewHolder
-import com.example.attempseven.holders.HomeStartViewHolder
+import com.example.attempseven.viewholders.ButtonRegisterWithDoctorViewHolder
+import com.example.attempseven.viewholders.HeaderViewHolder
+import com.example.attempseven.viewholders.HomeStartViewHolder
 import com.example.attempseven.interfaces.RecyclerViewItemClickListener
 
 class HomePageAdapter(

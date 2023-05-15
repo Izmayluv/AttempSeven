@@ -12,7 +12,7 @@ import com.example.attempseven.R
 import com.example.attempseven.adapters.ServicesAdapter
 import com.example.attempseven.databinding.FragmentChooseServiceBinding
 import com.example.attempseven.interfaces.RecyclerViewItemClickListener
-import com.example.attempseven.vm.ViewModel
+import com.example.attempseven.viewmodels.ViewModel
 
 class ChooseServiceFragment : Fragment(R.layout.fragment_choose_service), RecyclerViewItemClickListener {
 

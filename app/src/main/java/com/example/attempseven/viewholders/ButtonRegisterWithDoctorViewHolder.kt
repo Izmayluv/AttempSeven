@@ -1,6 +1,6 @@
-package com.example.attempseven.holders
+package com.example.attempseven.viewholders
 import androidx.recyclerview.widget.RecyclerView
-import com.example.attempseven.MyUtils
+import com.example.attempseven.utils.MyUtils
 import com.example.attempseven.databinding.ItemButtonRegisterWithDoctorBinding
 import com.example.attempseven.interfaces.RecyclerViewItemClickListener
 import com.example.attempseven.models.RecyclerViewDataModels
