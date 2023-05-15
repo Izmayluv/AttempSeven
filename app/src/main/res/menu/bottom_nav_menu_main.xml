@@ -13,6 +13,11 @@
         android:title="Notifications"
         android:icon="@drawable/ic_notifications"/>
 
+    <item android:id="@+id/miMap"
+        android:title="Map"
+        android:icon="@drawable/ic_map"
+        />
+
     <item android:id="@+id/miUser"
         android:title="@string/miUserTitle"
         android:icon="@drawable/ic_user" />

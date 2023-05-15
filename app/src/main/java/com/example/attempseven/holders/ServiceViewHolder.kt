@@ -1,23 +1,26 @@
 package com.example.attempseven.holders
+
 import androidx.recyclerview.widget.RecyclerView
 import com.example.attempseven.MyUtils
-import com.example.attempseven.databinding.ItemButtonRegisterWithDoctorBinding
+import com.example.attempseven.databinding.ItemServiceBinding
 import com.example.attempseven.interfaces.RecyclerViewItemClickListener
 import com.example.attempseven.models.RecyclerViewDataModels
 
-class ButtonRegisterWithDoctorViewHolder(
-    private val binding: ItemButtonRegisterWithDoctorBinding,
+class ServiceViewHolder(
+    private val binding: ItemServiceBinding,
     private val listener: RecyclerViewItemClickListener
-) : RecyclerView.ViewHolder(binding.root) {
+): RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(appointment: RecyclerViewDataModels.ItemAppointmentWDoctor){
-
+    fun bind(service: RecyclerViewDataModels.ItemService){
         binding.apply {
-            textView.text = appointment.action
+            tvServiceDirection.text = service.serviceDirection
+            tvDescription.text = service.description
+
             MyUtils.loadImageFromUrl(
-                appointment.imageUrl,
-                imageView
+                service.imageUrl,
+                imageService
             )
+
             root.setOnClickListener {
                 listener.onRecyclerViewItemClick(adapterPosition)
             }

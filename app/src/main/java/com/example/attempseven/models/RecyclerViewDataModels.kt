@@ -26,14 +26,20 @@ sealed class RecyclerViewDataModels{
 
     data class ItemAppointmentWDoctor(
         val action: String,
-        val image: String
-    ): RecyclerViewDataModels()
-
-    data class ViewPagerData(
         val imageUrl: String
     ): RecyclerViewDataModels()
 
-    data class ItemViewPager(
-        val list: MutableList<ViewPagerData>
+    data class ItemService(
+        val serviceDirection: String,
+        val description: String,
+        val imageUrl: String
+    ): RecyclerViewDataModels()
+
+    data class ItemPromoViewPager(
+        val imageUrl: String
+    ): RecyclerViewDataModels()
+
+    data class ViewPager(
+        val list: MutableList<RecyclerViewDataModels>
     ): RecyclerViewDataModels()
 }

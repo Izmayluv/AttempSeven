@@ -15,7 +15,7 @@ class PetViewHolder(
     binding.root
 ){
     @RequiresApi(Build.VERSION_CODES.O)
-    fun bind(pet: RecyclerViewDataModels.ItemPet/*, listener: OnItemClickListener*/){
+    fun bind(pet: RecyclerViewDataModels.ItemPet){
 
         binding.apply {
             tvName.text = pet.name
@@ -30,10 +30,6 @@ class PetViewHolder(
             root.setOnClickListener {
                 listener.onRecyclerViewItemClick(adapterPosition)
             }
-
-            /*itemView.setOnClickListener {
-                listener.onItemClick(pet)
-            }*/
         }
     }
 }

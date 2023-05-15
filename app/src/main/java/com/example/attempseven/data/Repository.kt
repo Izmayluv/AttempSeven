@@ -13,6 +13,10 @@ class Repository {
         return inputListHome
     }
 
+    fun getServicesData(): MutableList<RecyclerViewDataModels>{
+        return inputListServices
+    }
+
     private val inputListHome = mutableListOf(
         RecyclerViewDataModels.ItemHeader(
             "Добро пожаловать"
@@ -102,6 +106,17 @@ class Repository {
             Date(300),
             "Пикси-боб",
             "5"
+        )
+    )
+
+    val inputListServices = mutableListOf(
+        RecyclerViewDataModels.ItemHeader(
+            "Выберите услугу"
+        ),
+        RecyclerViewDataModels.ItemService(
+            "Первичный осмотр",
+            "В ходе обследования врач выполняет осмотр. На основании полученных данных проконсультирует владельца о необходимых в дальнейшем действиях.",
+            "https://docs.google.com/uc?id=1jqKbtJUYtZE5SKuoGSxUHVHvJRymbAF_"
         )
     )
 }

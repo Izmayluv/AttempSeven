@@ -25,7 +25,7 @@ class HomePageAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType){
-            ItemTypes.TYPE_START -> {
+            ItemTypes.HOME_START -> {
                 bindingStart = ItemHomeStartBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
@@ -34,7 +34,7 @@ class HomePageAdapter(
                 HomeStartViewHolder(bindingStart)
             }
 
-            ItemTypes.TYPE_HEADER -> {
+            ItemTypes.HEADER -> {
                 bindingHeader = ItemHeaderBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
@@ -43,7 +43,7 @@ class HomePageAdapter(
                 HeaderViewHolder(bindingHeader)
             }
 
-            ItemTypes.TYPE_APPOINTMENT_W_DOCTOR -> {
+            ItemTypes.BTN_APPOINTMENT_DOCTOR -> {
                 bindingAppointment = ItemButtonRegisterWithDoctorBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
@@ -68,10 +68,10 @@ class HomePageAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (adapterData[position]) {
-            is RecyclerViewDataModels.ItemHomeStart -> ItemTypes.TYPE_START
-            is RecyclerViewDataModels.ItemHeader -> ItemTypes.TYPE_HEADER
-            is RecyclerViewDataModels.ItemAppointmentWDoctor -> ItemTypes.TYPE_APPOINTMENT_W_DOCTOR
-            else -> ItemTypes.TYPE_PET
+            is RecyclerViewDataModels.ItemHomeStart -> ItemTypes.HOME_START
+            is RecyclerViewDataModels.ItemHeader -> ItemTypes.HEADER
+            is RecyclerViewDataModels.ItemAppointmentWDoctor -> ItemTypes.BTN_APPOINTMENT_DOCTOR
+            else -> ItemTypes.PET
         }
     }
 

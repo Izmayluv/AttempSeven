@@ -31,6 +31,13 @@ class ViewModel : ViewModel() {
         }
     }
 
+    fun getServicesData(callback: (MutableList<RecyclerViewDataModels>) -> Unit){
+        viewModelScope.launch(Dispatchers.IO) {
+            val data = repository.getServicesData()
+            callback(data)
+        }
+    }
+
     var sharedPet: RecyclerViewDataModels.ItemPet? = null
 
     private val _isBottomNavMenuVisible = MutableLiveData<Boolean>(true)

@@ -9,8 +9,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.attempseven.R
 import com.example.attempseven.databinding.ActivityMainBinding
+import com.example.attempseven.fragments.ChooseServiceFragment
 import com.example.attempseven.fragments.PetsFragment
 import com.example.attempseven.fragments.HomeFragment
+import com.example.attempseven.fragments.MapsFragment
 import com.example.attempseven.fragments.NotificationsFragment
 import com.example.attempseven.fragments.UserFragment
 import com.example.attempseven.vm.ViewModel
@@ -23,7 +25,8 @@ class MainActivity : AppCompatActivity() {
         val homeFragment = HomeFragment()
         val userFragment = UserFragment()
         val notificationsFragment = NotificationsFragment()
-        //val newsFeedFragment = NewsFeedFragment()
+       // val mapsFragment = MapsFragment()
+        val chooseServiceFragment = ChooseServiceFragment()
     }
 
     private lateinit var binding: ActivityMainBinding
@@ -86,6 +89,16 @@ class MainActivity : AppCompatActivity() {
                     setCurrentFragment(userFragment)
                     true
                 }
+                /*R.id.miMap -> {
+                    setCurrentFragment(mapsFragment)
+                    true
+                }*/
+
+                R.id.miMap -> {
+                    setCurrentFragment(chooseServiceFragment)
+                    true
+                }
+
                 R.id.miNotifications -> {
                     setCurrentFragment(notificationsFragment)
                     true

@@ -6,36 +6,35 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import com.example.attempseven.databinding.ItemPetBinding
-import com.example.attempseven.models.RecyclerViewDataModels
-import com.example.attempseven.data.ItemTypes.HEADER
-import com.example.attempseven.data.ItemTypes.PET
+import com.example.attempseven.data.ItemTypes
 import com.example.attempseven.databinding.ItemHeaderBinding
+import com.example.attempseven.databinding.ItemServiceBinding
 import com.example.attempseven.holders.HeaderViewHolder
-import com.example.attempseven.holders.PetViewHolder
+import com.example.attempseven.holders.ServiceViewHolder
 import com.example.attempseven.interfaces.RecyclerViewItemClickListener
+import com.example.attempseven.models.RecyclerViewDataModels
 
-class PetsAdapter(
+class ServicesAdapter(
     private val listener: RecyclerViewItemClickListener
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var adapterData: MutableList<RecyclerViewDataModels> = mutableListOf<RecyclerViewDataModels>()
 
+    private lateinit var bindingService: ItemServiceBinding
     private lateinit var bindingHeader: ItemHeaderBinding
-    private lateinit var bindingPet: ItemPetBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        when (viewType) {
-            PET -> {
-                bindingPet = ItemPetBinding.inflate(
+        when(viewType){
+            ItemTypes.SERVICE -> {
+                bindingService = ItemServiceBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                PetViewHolder(bindingPet, listener)
+                ServiceViewHolder(bindingService, listener)
             }
 
-            HEADER -> {
+            else -> {
                 bindingHeader = ItemHeaderBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
@@ -43,26 +42,14 @@ class PetsAdapter(
                 )
                 HeaderViewHolder(bindingHeader)
             }
-
-            else -> {
-                bindingPet = ItemPetBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-                PetViewHolder(bindingPet, listener)
-            }
         }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder,
-        position: Int
-    ) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is PetViewHolder -> {
-                val pet = adapterData[position] as RecyclerViewDataModels.ItemPet
-                holder.bind(pet)
+            is ServiceViewHolder -> {
+                val service = adapterData[position] as RecyclerViewDataModels.ItemService
+                holder.bind(service)
             }
             is HeaderViewHolder -> {
                 val header = adapterData[position] as RecyclerViewDataModels.ItemHeader
@@ -71,15 +58,15 @@ class PetsAdapter(
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return when (adapterData[position]) {
-            is RecyclerViewDataModels.ItemPet -> PET
-            else -> HEADER
-        }
+    override fun getItemCount(): Int {
+       return adapterData.size
     }
 
-    override fun getItemCount(): Int {
-        return adapterData.size
+    override fun getItemViewType(position: Int): Int {
+        return when (adapterData[position]) {
+            is RecyclerViewDataModels.ItemService -> ItemTypes.SERVICE
+            else -> ItemTypes.HEADER
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
