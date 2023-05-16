@@ -1,4 +1,4 @@
-package com.example.attempseven
+package com.gvldc.vetclinic
 
 import org.junit.Test
 

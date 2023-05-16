@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.attempseven'
+    namespace 'com.gvldc.vetclinic'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.attempseven"
+        applicationId "com.gvldc.vetclinic"
         minSdk 24
         targetSdk 33
         versionCode 1
