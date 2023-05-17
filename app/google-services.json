@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "370611905186",
+    "project_id": "vetclinicgvldc",
+    "storage_bucket": "vetclinicgvldc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:370611905186:android:61f923978a46b00cdaedfb",
+        "android_client_info": {
+          "package_name": "com.gvldc.vetclinic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "370611905186-7pflpee1t6u9hcfr64je4sohid2aoit0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gvldc.vetclinic",
+            "certificate_hash": "235524c48718226fbfcb1ebcfdc1c3072e9e2b84"
+          }
+        },
+        {
+          "client_id": "370611905186-u1b2jt4r0jsk8n7pituohcc03auo30og.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxVyZDbiueAlo-Og5unAigW8CH74sy0wg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "370611905186-u1b2jt4r0jsk8n7pituohcc03auo30og.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
