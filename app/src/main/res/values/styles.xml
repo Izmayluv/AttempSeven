@@ -9,10 +9,6 @@
         <item name="strokeWidth">2dp</item>
     </style>
 
-    <style name="ButtonTextStyle" parent="@style/TextAppearance.AppCompat.Button">
-        <item name="android:textColor">@color/colorSecondary</item>
-    </style>
-
     <style name="CardViewButton" parent="@style/Widget.MaterialComponents.CardView">
         <item name="rippleColor">@color/itemMenuActive</item>
         <item name="android:foreground">?android:attr/selectableItemBackground</item>

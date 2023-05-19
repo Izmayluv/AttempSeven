@@ -1,21 +1,14 @@
 package com.gvldc.vetclinic.data
 
-import com.gvldc.vetclinic.domain.models.RecyclerViewDataModels
+import android.util.Log
+import com.gvldc.vetclinic.models.RecyclerViewDataModels
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.Date
 
 class Repository {
 
-    fun getPetsData(): MutableList<RecyclerViewDataModels> {
-        return inputListPets
-    }
-
-    fun getHomeData(): MutableList<RecyclerViewDataModels>{
-        return inputListHome
-    }
-
-    fun getServicesData(): MutableList<RecyclerViewDataModels>{
-        return inputListServices
-    }
+    private val fireStoreRepository = FireStoreRepository()
 
     private val inputListHome = mutableListOf(
         RecyclerViewDataModels.ItemHeader(
@@ -68,7 +61,7 @@ class Repository {
         ),
     )
 
-    val inputListPets = mutableListOf(
+/*    val inputListPets = mutableListOf(
         RecyclerViewDataModels.ItemHeader(
             "Мои питомцы "
         ),
@@ -77,37 +70,32 @@ class Repository {
             "https://pngimg.com/d/cat_PNG50426.png",
             Date(245),
             "Сиамская",
-            "1"
         ),
         RecyclerViewDataModels.ItemPet(
             "Шон",
             "https://www.freepnglogos.com/uploads/cat-png/cute-cat-images-download-7.png",
             Date(220),
             "Персидская",
-            "2"
         ),
         RecyclerViewDataModels.ItemPet(
             "Джерри",
             "https://pngfre.com/wp-content/uploads/transparent-cat-by-pngfre-75.png",
             Date(260),
             "Мейн-кун",
-            "3"
         ),
         RecyclerViewDataModels.ItemPet(
             "Дейзи",
             "https://www.freepnglogos.com/uploads/cat-png/cat-sitting-boarding-daycare-15.png",
             Date(290),
             "Корниш-рекс",
-            "4"
         ),
         RecyclerViewDataModels.ItemPet(
             "Ханна",
             "https://docs.google.com/uc?id=1jqKbtJUYtZE5SKuoGSxUHVHvJRymbAF_",
             Date(300),
             "Пикси-боб",
-            "5"
         )
-    )
+    )*/
 
     private val inputListServices = mutableListOf(
         RecyclerViewDataModels.ItemHeader(
@@ -119,4 +107,21 @@ class Repository {
             "https://zoostatus.ru/upload/zoostatus-articles-foto/pervichniy_osmotr/pervichnii_osmotr_1.jpg"
         )
     )
+
+    suspend fun getPetsData(): MutableList<RecyclerViewDataModels> {
+        val pets = fireStoreRepository.getPets()
+        val inputListPets = mutableListOf<RecyclerViewDataModels>()
+        inputListPets.add(RecyclerViewDataModels.ItemHeader("Мои питомцы "))
+        inputListPets.addAll(pets)
+        Log.d("TEST", "test")
+        return inputListPets
+    }
+
+    fun getHomeData(): MutableList<RecyclerViewDataModels>{
+        return inputListHome
+    }
+
+    fun getServicesData(): MutableList<RecyclerViewDataModels>{
+        return inputListServices
+    }
 }
