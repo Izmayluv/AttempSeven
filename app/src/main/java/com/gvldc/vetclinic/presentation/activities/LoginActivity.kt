@@ -1,4 +1,4 @@
-package com.gvldc.vetclinic.activities
+package com.gvldc.vetclinic.presentation.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
