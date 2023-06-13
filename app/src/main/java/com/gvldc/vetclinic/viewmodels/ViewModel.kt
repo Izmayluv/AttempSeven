@@ -50,6 +50,13 @@ class ViewModel : ViewModel() {
         }
     }
 
+    fun getNotificationsData(callback: (MutableList<RecyclerViewDataModels>) -> Unit){
+        viewModelScope.launch(Dispatchers.IO) {
+            val data = repository.getNotificationsData()
+            callback(data)
+        }
+    }
+
     var sharedPet: RecyclerViewDataModels.ItemPet? = null
 
     private val _isBottomNavMenuVisible = MutableLiveData<Boolean>(true)
@@ -73,6 +80,4 @@ class ViewModel : ViewModel() {
                 R.color.navBarColor
             )
     }
-
-
 }

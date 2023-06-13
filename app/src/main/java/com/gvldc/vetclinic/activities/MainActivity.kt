@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             navigateToLoginScreen()
         }
 
-        MapKitFactory.setApiKey(R.string.yandexApiKey.toString())
+        MapKitFactory.setApiKey("2e3ccb1e-23b2-4242-bdf3-f879bccfea7e")
 
         setColorStateListForBottomNavMenu(
             activeColorId =  R.color.itemMenuActive,
@@ -74,7 +74,6 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-
 
     private fun setColorStateListForBottomNavMenu(activeColorId:Int, inactiveColorId:Int){
         val states = arrayOf(
@@ -109,16 +108,6 @@ class MainActivity : AppCompatActivity() {
                     setCurrentFragment(userFragment)
                     true
                 }
-                R.id.miMap -> {
-                    setCurrentFragment(mapsFragment)
-                    true
-                }
-
-/*                R.id.miMap -> {
-                    setCurrentFragment(chooseServiceFragment)
-                    true
-                }*/
-
                 R.id.miNotifications -> {
                     setCurrentFragment(notificationsFragment)
                     true

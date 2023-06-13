@@ -6,11 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gvldc.vetclinic.utils.MyUtils
 import com.gvldc.vetclinic.models.RecyclerViewDataModels
 import com.gvldc.vetclinic.databinding.ItemPetBinding
-import com.gvldc.vetclinic.interfaces.RecyclerViewItemClickListener
+import com.gvldc.vetclinic.fragments.PetsFragment
 
 class PetViewHolder(
     private val binding: ItemPetBinding,
-    private val listener: RecyclerViewItemClickListener
+    private val listener: PetsFragment
 ): RecyclerView.ViewHolder(
     binding.root
 ){

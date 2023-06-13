@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="white">#FFFFFF</color>
     <color name="colorSecondary">#18AD90</color>
     <color name="transparent">#00000000</color>
     <color name="itemMenuActive">#1F2A39</color>
@@ -7,4 +8,5 @@
     <color name="background">#FAFAFA</color>
     <color name="on_surface">#FAFAFA</color>
     <color name="navBarColor">#EDEDED</color>
+    <color name="grey">#314257</color>
 </resources>

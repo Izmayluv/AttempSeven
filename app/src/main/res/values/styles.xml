@@ -2,11 +2,14 @@
 
 <resources>
     <style name="RegularButtonStyle" parent="@style/Widget.Material3.Button">
-        <item name="backgroundTint">@color/transparent</item>
-        <item name="cornerRadius">0dp</item>
+        <item name="backgroundTint">@color/colorSecondary</item>
+        <item name="cornerRadius">16dp</item>
         <item name="rippleColor">@color/itemMenuActive</item>
-        <item name="strokeColor">@color/colorSecondary</item>
-        <item name="strokeWidth">2dp</item>
+    </style>
+
+    <style name="RegularButtonTextStyle" parent="@style/TextAppearance.MaterialComponents.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">@font/roboto</item>
     </style>
 
     <style name="CardViewButton" parent="@style/Widget.MaterialComponents.CardView">
@@ -14,5 +17,12 @@
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
         <item name="cardCornerRadius">16dp</item>
         <item name="cardElevation">8dp</item>
+    </style>
+
+    <style name="RegularEditText" parent="@style/Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/itemMenuActive</item>
+        <item name="font">@font/roboto</item>
+        <item name="fontFamily">@font/roboto</item>
+        <item name="textOutlineColor">@color/colorSecondary</item>
     </style>
 </resources>

@@ -1,12 +1,11 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">ГВЛДЦ№1</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="miUserTitle">User</string>
     <string name="miHomeTitle">Home</string>
     <string name="miPetsTitle">Pets</string>
-    <string name="yandexApiKey" translatable="false">2e3ccb1e-23b2-4242-bdf3-f879bccfea7e</string>
+    <string name="yandexApiKey" tools:ignore="TypographyDashes">2e3ccb1e-23b2-4242-bdf3-f879bccfea7e</string>
     <string name="google_app_id">1:370611905186:android:61f923978a46b00cdaedfb</string>
-
 
 
 </resources>

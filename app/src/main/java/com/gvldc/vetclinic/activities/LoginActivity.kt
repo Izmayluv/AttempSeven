@@ -12,6 +12,7 @@ import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.gvldc.vetclinic.R
 import com.gvldc.vetclinic.databinding.ActivityLoginBinding
+import com.gvldc.vetclinic.utils.MyUtils
 import java.util.concurrent.TimeUnit
 
 class LoginActivity() : AppCompatActivity() {
@@ -32,8 +33,8 @@ class LoginActivity() : AppCompatActivity() {
         binding.apply {
 
             buttonLogin.setOnClickListener {
-                val email = editTextTextEmailAddress.text.toString().trim()
-                val password = editTextTextPassword.text.toString().trim()
+                val email = editTextEmailAddress.text.toString().trim()
+                val password = editTextPassword.text.toString().trim()
 
                 if (email.isNullOrEmpty() || password.isNullOrEmpty()){
                     val message = "Введите данные"
@@ -42,19 +43,10 @@ class LoginActivity() : AppCompatActivity() {
                 else{
                     signInWithEmailAndPassword(email, password)
                 }
-
             }
-            buttonRegister.setOnClickListener {
-                val email = editTextTextEmailAddress.text.toString().trim()
-                val password = editTextTextPassword.text.toString().trim()
 
-                if (email.isNullOrEmpty() || password.isNullOrEmpty()){
-                    val message = "Введите данные"
-                    Toast.makeText(binding.root.context, message, Toast.LENGTH_SHORT).show()
-                }
-                else{
-                    registerWithEmailAndPassword(email, password)
-                }
+            textViewRegistration.setOnClickListener {
+                navigateToRegistrationScreen()
             }
 /*            buttonRegisterPhone.setOnClickListener {
                 val phoneNumber = phoneNumberEditText.text.toString()
@@ -108,20 +100,6 @@ class LoginActivity() : AppCompatActivity() {
             }
     }
 
-    private fun registerWithEmailAndPassword(email: String, password: String) {
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Регистрация выполнена успешно
-                    navigateToMainScreen()
-                } else {
-                    // Регистрация не выполнена, обработка ошибки
-                    val message = task.exception?.message ?: "Ошибка регистрации"
-                    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-                }
-            }
-    }
-
 /*    private fun startPhoneVerification(phoneNumber: String) {
         val options = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber(phoneNumber)
@@ -164,5 +142,10 @@ class LoginActivity() : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    private fun navigateToRegistrationScreen() {
+        val intent = Intent(this, RegistrationActivity::class.java)
+        startActivity(intent)
     }
 }

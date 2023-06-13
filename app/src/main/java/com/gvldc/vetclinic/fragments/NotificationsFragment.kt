@@ -5,25 +5,39 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.gvldc.vetclinic.R
+import com.gvldc.vetclinic.adapters.NotificationsAdapter
+import com.gvldc.vetclinic.adapters.PetsAdapter
 import com.gvldc.vetclinic.databinding.FragmentNotificationsBinding
+import com.gvldc.vetclinic.viewmodels.ViewModel
 
 
 class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
 
-    lateinit var binding: FragmentNotificationsBinding
+    private val viewModel by activityViewModels<ViewModel>()
+
+    lateinit var bindingFragmentNotifications : FragmentNotificationsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentNotificationsBinding.inflate(layoutInflater)
+        bindingFragmentNotifications = FragmentNotificationsBinding.inflate(layoutInflater)
 
+        val adapter = NotificationsAdapter()
+        viewModel.getNotificationsData { data ->
+            adapter.setData(data)
+        }
 
+        bindingFragmentNotifications.rvNotifications.apply {
+            layoutManager = LinearLayoutManager(this@NotificationsFragment.context)
+            hasFixedSize()
+            this.adapter = adapter
+        }
 
-        return binding.root
+        return bindingFragmentNotifications.root
     }
-
-
 
 }

@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gvldc.vetclinic.models.ItemTypes
 import com.gvldc.vetclinic.databinding.ItemHeaderBinding
 import com.gvldc.vetclinic.databinding.ItemServiceBinding
+import com.gvldc.vetclinic.fragments.ChooseServiceFragment
 import com.gvldc.vetclinic.viewholders.HeaderViewHolder
 import com.gvldc.vetclinic.viewholders.ServiceViewHolder
-import com.gvldc.vetclinic.interfaces.RecyclerViewItemClickListener
 import com.gvldc.vetclinic.models.RecyclerViewDataModels
 
 class ServicesAdapter(
-    private val listener: RecyclerViewItemClickListener
+    private val listener: ChooseServiceFragment
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var adapterData: MutableList<RecyclerViewDataModels> = mutableListOf<RecyclerViewDataModels>()

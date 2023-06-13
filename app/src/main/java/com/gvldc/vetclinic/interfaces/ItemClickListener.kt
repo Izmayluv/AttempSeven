@@ -1,5 +1,5 @@
 package com.gvldc.vetclinic.interfaces
 
-interface RecyclerViewItemClickListener {
+interface ItemClickListener {
     fun onRecyclerViewItemClick(position: Int)
 }

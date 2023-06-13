@@ -6,36 +6,24 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import com.gvldc.vetclinic.databinding.ItemPetBinding
-import com.gvldc.vetclinic.models.RecyclerViewDataModels
-import com.gvldc.vetclinic.models.ItemTypes.HEADER
-import com.gvldc.vetclinic.models.ItemTypes.PET
 import com.gvldc.vetclinic.databinding.ItemHeaderBinding
-import com.gvldc.vetclinic.fragments.PetsFragment
+import com.gvldc.vetclinic.databinding.ItemNotificationBinding
+import com.gvldc.vetclinic.models.ItemTypes
+import com.gvldc.vetclinic.models.RecyclerViewDataModels
 import com.gvldc.vetclinic.viewholders.HeaderViewHolder
-import com.gvldc.vetclinic.viewholders.PetViewHolder
+import com.gvldc.vetclinic.viewholders.NotificationViewHolder
 
-class PetsAdapter(
-    private val listener: PetsFragment
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class NotificationsAdapter () : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var adapterData: MutableList<RecyclerViewDataModels> = mutableListOf<RecyclerViewDataModels>()
 
     private lateinit var bindingHeader: ItemHeaderBinding
-    private lateinit var bindingPet: ItemPetBinding
+    private lateinit var bindingNotification: ItemNotificationBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
-            PET -> {
-                bindingPet = ItemPetBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-                PetViewHolder(bindingPet, listener)
-            }
 
-            HEADER -> {
+            ItemTypes.HEADER -> {
                 bindingHeader = ItemHeaderBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
@@ -45,12 +33,12 @@ class PetsAdapter(
             }
 
             else -> {
-                bindingPet = ItemPetBinding.inflate(
+                bindingNotification = ItemNotificationBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                PetViewHolder(bindingPet, listener)
+                NotificationViewHolder(bindingNotification)
             }
         }
 
@@ -60,9 +48,9 @@ class PetsAdapter(
         position: Int
     ) {
         when (holder) {
-            is PetViewHolder -> {
-                val pet = adapterData[position] as RecyclerViewDataModels.ItemPet
-                holder.bind(pet)
+            is NotificationViewHolder -> {
+                val notification = adapterData[position] as RecyclerViewDataModels.ItemNotification
+                holder.bind(notification)
             }
             is HeaderViewHolder -> {
                 val header = adapterData[position] as RecyclerViewDataModels.ItemHeader
@@ -73,8 +61,8 @@ class PetsAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (adapterData[position]) {
-            is RecyclerViewDataModels.ItemPet -> PET
-            else -> HEADER
+            is RecyclerViewDataModels.ItemNotification -> ItemTypes.NOTIFICATION
+            else -> ItemTypes.HEADER
         }
     }
 

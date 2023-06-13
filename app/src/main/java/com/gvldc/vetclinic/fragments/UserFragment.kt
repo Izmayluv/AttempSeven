@@ -31,7 +31,6 @@ class UserFragment : Fragment(R.layout.fragment_user){
 
         bindingFragmentUser.apply {
 
-            textUser.text = auth.currentUser.toString()
             buttonSignOut.setOnClickListener {
                 signOut()
             }

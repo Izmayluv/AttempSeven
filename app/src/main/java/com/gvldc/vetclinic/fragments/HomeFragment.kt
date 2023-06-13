@@ -12,10 +12,16 @@ import com.gvldc.vetclinic.R
 import com.gvldc.vetclinic.adapters.GridItemDecoration
 import com.gvldc.vetclinic.adapters.HomePageAdapter
 import com.gvldc.vetclinic.databinding.FragmentHomeBinding
-import com.gvldc.vetclinic.interfaces.RecyclerViewItemClickListener
+import com.gvldc.vetclinic.interfaces.ItemAppointmentClickListener
+import com.gvldc.vetclinic.interfaces.ItemClinicsInfoClickListener
+import com.gvldc.vetclinic.interfaces.ItemVetsInfoClickListener
 import com.gvldc.vetclinic.viewmodels.ViewModel
 
-class HomeFragment : Fragment(R.layout.fragment_home), RecyclerViewItemClickListener {
+class HomeFragment : Fragment(R.layout.fragment_home),
+    ItemAppointmentClickListener,
+    ItemVetsInfoClickListener,
+    ItemClinicsInfoClickListener
+{
 
     private lateinit var bindingFragmentHome: FragmentHomeBinding
     private val viewModel by activityViewModels<ViewModel>()
@@ -31,7 +37,12 @@ class HomeFragment : Fragment(R.layout.fragment_home), RecyclerViewItemClickList
         val density = resources.displayMetrics.density // получаем плотность экрана
         val spacingInPixels = (spacingInDp * density).toInt() // переводим в пиксели
 
-        val adapter = HomePageAdapter(this)
+        val adapter = HomePageAdapter(
+            appointmentClickListener = this,
+            vetsInfoClickListener = this,
+            clinicsInfoClickListener = this
+        )
+
         viewModel.getHomeData { data ->
             adapter.setData(data)
         }
@@ -57,7 +68,15 @@ class HomeFragment : Fragment(R.layout.fragment_home), RecyclerViewItemClickList
         return bindingFragmentHome.root
     }
 
-    override fun onRecyclerViewItemClick(position: Int) {
+    override fun onRecyclerViewAppointmentClick(position: Int) {
         Toast.makeText(context, "Запись!", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onRecyclerViewClinicsInfoClick(position: Int) {
+        Toast.makeText(context, "Информация о клиниках", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onRecyclerViewVetsInfoClick(position: Int) {
+        Toast.makeText(context, "Информация о ветеринарах", Toast.LENGTH_SHORT).show()
     }
 }

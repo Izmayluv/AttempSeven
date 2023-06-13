@@ -31,9 +31,13 @@ class SelectedPetFragment : Fragment(R.layout.fragment_selected_pet) {
         val name = "${pet?.name}\n"
         val breed = "${pet?.breed}\n"
         val birthDay = MyUtils.dateToString(pet?.birthDay)
-        val text = name + breed+ birthDay
+
         binding.apply {
-            tv.text = text
+
+            tvName.text = name
+            tvBreed.text = breed
+            tvAge.text = birthDay
+
             MyUtils.loadImageFromUrl(
                 pet?.imageUrl,
                 iv

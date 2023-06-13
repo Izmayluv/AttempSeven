@@ -3,12 +3,12 @@ package com.gvldc.vetclinic.viewholders
 import androidx.recyclerview.widget.RecyclerView
 import com.gvldc.vetclinic.utils.MyUtils
 import com.gvldc.vetclinic.databinding.ItemServiceBinding
-import com.gvldc.vetclinic.interfaces.RecyclerViewItemClickListener
+import com.gvldc.vetclinic.fragments.ChooseServiceFragment
 import com.gvldc.vetclinic.models.RecyclerViewDataModels
 
 class ServiceViewHolder(
     private val binding: ItemServiceBinding,
-    private val listener: RecyclerViewItemClickListener
+    private val listener: ChooseServiceFragment
 ): RecyclerView.ViewHolder(binding.root) {
 
     fun bind(service: RecyclerViewDataModels.ItemService){

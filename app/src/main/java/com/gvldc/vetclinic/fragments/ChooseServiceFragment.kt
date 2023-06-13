@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gvldc.vetclinic.R
 import com.gvldc.vetclinic.adapters.ServicesAdapter
 import com.gvldc.vetclinic.databinding.FragmentChooseServiceBinding
-import com.gvldc.vetclinic.interfaces.RecyclerViewItemClickListener
+import com.gvldc.vetclinic.interfaces.ItemClickListener
 import com.gvldc.vetclinic.viewmodels.ViewModel
 
 class ChooseServiceFragment : Fragment(R.layout.fragment_choose_service),
-    RecyclerViewItemClickListener {
+    ItemClickListener {
 
     lateinit var bindingFragmentChooseService: FragmentChooseServiceBinding
     private val viewModel by activityViewModels<ViewModel>()
@@ -43,5 +43,6 @@ class ChooseServiceFragment : Fragment(R.layout.fragment_choose_service),
     override fun onRecyclerViewItemClick(position: Int) {
         Toast.makeText(context, "Услуга!", Toast.LENGTH_SHORT).show()
     }
+
 
 }

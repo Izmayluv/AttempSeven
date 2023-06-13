@@ -1,16 +1,16 @@
 package com.gvldc.vetclinic.viewholders
 import androidx.recyclerview.widget.RecyclerView
+import com.gvldc.vetclinic.databinding.ItemButtonAppointmentBinding
 import com.gvldc.vetclinic.utils.MyUtils
-import com.gvldc.vetclinic.databinding.ItemButtonRegisterWithDoctorBinding
-import com.gvldc.vetclinic.interfaces.RecyclerViewItemClickListener
+import com.gvldc.vetclinic.interfaces.ItemAppointmentClickListener
 import com.gvldc.vetclinic.models.RecyclerViewDataModels
 
-class ButtonRegisterWithDoctorViewHolder(
-    private val binding: ItemButtonRegisterWithDoctorBinding,
-    private val listener: RecyclerViewItemClickListener
+class ButtonAppointmentViewHolder(
+    private val binding: ItemButtonAppointmentBinding,
+    private val listener: ItemAppointmentClickListener
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(appointment: RecyclerViewDataModels.ItemAppointmentWDoctor){
+    fun bind(appointment: RecyclerViewDataModels.ItemAppointment){
 
         binding.apply {
             textView.text = appointment.action
@@ -19,7 +19,7 @@ class ButtonRegisterWithDoctorViewHolder(
                 imageView
             )
             root.setOnClickListener {
-                listener.onRecyclerViewItemClick(adapterPosition)
+                listener.onRecyclerViewAppointmentClick(adapterPosition)
             }
         }
     }

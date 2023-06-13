@@ -23,9 +23,35 @@ sealed class RecyclerViewDataModels{
         val breed: String,
     ): RecyclerViewDataModels()
 
-    data class ItemAppointmentWDoctor(
+    data class ItemAppointment(
         val action: String,
         val imageUrl: String
+    ): RecyclerViewDataModels()
+
+    data class ItemClinics(
+        val action: String,
+        val imageUrl: String
+    ): RecyclerViewDataModels()
+
+    data class ItemVets(
+        val action: String,
+        val imageUrl: String
+    ): RecyclerViewDataModels()
+
+    data class ItemLogo(
+        val imageUrl: String
+    ): RecyclerViewDataModels()
+
+    data class ItemNews(
+        val title: String,
+        val news: String,
+        val imageUrl: String
+    ): RecyclerViewDataModels()
+
+    data class ItemNotification(
+        val title: String,
+        val message: String,
+        val datetime: String
     ): RecyclerViewDataModels()
 
     data class ItemService(
