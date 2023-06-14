@@ -134,40 +134,4 @@ class Repository {
     fun getServicesData(): MutableList<RecyclerViewDataModels>{
         return inputListServices
     }
-
-    /*    val inputListPets = mutableListOf(
-        RecyclerViewDataModels.ItemHeader(
-            "Мои питомцы "
-        ),
-        RecyclerViewDataModels.ItemPet(
-            "Алекс",
-            "https://pngimg.com/d/cat_PNG50426.png",
-            Date(245),
-            "Сиамская",
-        ),
-        RecyclerViewDataModels.ItemPet(
-            "Шон",
-            "https://www.freepnglogos.com/uploads/cat-png/cute-cat-images-download-7.png",
-            Date(220),
-            "Персидская",
-        ),
-        RecyclerViewDataModels.ItemPet(
-            "Джерри",
-            "https://pngfre.com/wp-content/uploads/transparent-cat-by-pngfre-75.png",
-            Date(260),
-            "Мейн-кун",
-        ),
-        RecyclerViewDataModels.ItemPet(
-            "Дейзи",
-            "https://www.freepnglogos.com/uploads/cat-png/cat-sitting-boarding-daycare-15.png",
-            Date(290),
-            "Корниш-рекс",
-        ),
-        RecyclerViewDataModels.ItemPet(
-            "Ханна",
-            "https://docs.google.com/uc?id=1jqKbtJUYtZE5SKuoGSxUHVHvJRymbAF_",
-            Date(300),
-            "Пикси-боб",
-        )
-    )*/
 }
