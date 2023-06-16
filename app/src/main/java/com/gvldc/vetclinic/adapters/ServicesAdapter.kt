@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import com.gvldc.vetclinic.models.ItemTypes
+import com.gvldc.vetclinic.utils.ItemTypes
 import com.gvldc.vetclinic.databinding.ItemHeaderBinding
 import com.gvldc.vetclinic.databinding.ItemServiceBinding
 import com.gvldc.vetclinic.fragments.ChooseServiceFragment

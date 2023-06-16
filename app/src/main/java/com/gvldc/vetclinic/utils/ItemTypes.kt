@@ -1,4 +1,4 @@
-package com.gvldc.vetclinic.models
+package com.gvldc.vetclinic.utils
 
 object ItemTypes {
 

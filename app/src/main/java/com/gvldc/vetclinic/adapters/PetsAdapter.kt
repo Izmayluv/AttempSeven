@@ -8,8 +8,8 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.gvldc.vetclinic.databinding.ItemPetBinding
 import com.gvldc.vetclinic.models.RecyclerViewDataModels
-import com.gvldc.vetclinic.models.ItemTypes.HEADER
-import com.gvldc.vetclinic.models.ItemTypes.PET
+import com.gvldc.vetclinic.utils.ItemTypes.HEADER
+import com.gvldc.vetclinic.utils.ItemTypes.PET
 import com.gvldc.vetclinic.databinding.ItemHeaderBinding
 import com.gvldc.vetclinic.fragments.PetsFragment
 import com.gvldc.vetclinic.viewholders.HeaderViewHolder

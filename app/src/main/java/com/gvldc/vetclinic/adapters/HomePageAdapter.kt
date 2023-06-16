@@ -7,7 +7,7 @@ import com.gvldc.vetclinic.databinding.ItemButtonAboutClinicBinding
 import com.gvldc.vetclinic.databinding.ItemButtonAboutVetsBinding
 import com.gvldc.vetclinic.databinding.ItemButtonAppointmentBinding
 import com.gvldc.vetclinic.models.RecyclerViewDataModels
-import com.gvldc.vetclinic.models.ItemTypes
+import com.gvldc.vetclinic.utils.ItemTypes
 import com.gvldc.vetclinic.databinding.ItemHeaderBinding
 import com.gvldc.vetclinic.databinding.ItemHomeStartBinding
 import com.gvldc.vetclinic.databinding.ItemLogoBinding

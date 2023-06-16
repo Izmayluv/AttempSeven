@@ -6,15 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.google.firebase.auth.FirebaseAuth
 import com.gvldc.vetclinic.R
 import com.gvldc.vetclinic.activities.LoginActivity
 import com.gvldc.vetclinic.databinding.FragmentUserBinding
+import com.gvldc.vetclinic.models.User
+import com.gvldc.vetclinic.viewmodels.ViewModel
 
 class UserFragment : Fragment(R.layout.fragment_user){
 
     private lateinit var bindingFragmentUser: FragmentUserBinding
     private lateinit var auth: FirebaseAuth
+    private val viewModel by activityViewModels<ViewModel>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +35,11 @@ class UserFragment : Fragment(R.layout.fragment_user){
         bindingFragmentUser = FragmentUserBinding.inflate(layoutInflater)
 
         bindingFragmentUser.apply {
+            val user = viewModel.getUserData(FirebaseAuth.getInstance().currentUser?.uid.toString())
+
+/*            textViewUserEmail.text = "Почта: ${user.email}"
+            textViewUserName.text = user.name
+            textViewUserPhone.text = "Номер телефона: ${user.phone}"*/
 
             buttonSignOut.setOnClickListener {
                 signOut()

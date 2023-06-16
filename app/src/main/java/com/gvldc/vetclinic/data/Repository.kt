@@ -1,8 +1,10 @@
 package com.gvldc.vetclinic.data
 
 import android.util.Log
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.gvldc.vetclinic.models.RecyclerViewDataModels
+import com.gvldc.vetclinic.models.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -10,24 +12,114 @@ import java.util.Date
 
 class Repository {
 
-    private val fireStore = FirebaseFirestore.getInstance()
+    private val fireStoreDb = FirebaseFirestore.getInstance()
 
-    private suspend fun getPets(): List<RecyclerViewDataModels.ItemPet> = withContext(Dispatchers.IO) {
-        val petsCollection = fireStore.collection("Pets")
-        val petsSnapshot = petsCollection.get().await()
+    private suspend fun getPets(userId: String): List<RecyclerViewDataModels.ItemPet> =
+        withContext(Dispatchers.IO) {
+            val petsCollection = fireStoreDb.collection("Users").document(userId).collection("Pets")
+            val petsSnapshot = petsCollection.get().await()
 
-        val petsList = mutableListOf<RecyclerViewDataModels.ItemPet>()
-        for (document in petsSnapshot) {
-            val name = document.getString("name") ?: ""
-            val imageUrl = document.getString("imageUrl") ?: ""
-            val birthDateMillis = document.getLong("birthDate") ?: 0
-            val breed = document.getString("breed") ?: ""
-            val birthDate = Date(birthDateMillis)
-            val pet = RecyclerViewDataModels.ItemPet(name, imageUrl, birthDate, breed)
-            petsList.add(pet)
-            Log.d("tag", "Питомцы грузятся")
+            val petsList = mutableListOf<RecyclerViewDataModels.ItemPet>()
+            for (document in petsSnapshot) {
+                val name = document.getString("name") ?: ""
+                val imageUrl = document.getString("imageUrl") ?: ""
+                val birthDateMillis = document.getLong("birthDate") ?: 0
+                val breed = document.getString("breed") ?: ""
+                val birthDate = Date(birthDateMillis)
+                val pet = RecyclerViewDataModels.ItemPet(name, imageUrl, birthDate, breed)
+                petsList.add(pet)
+                Log.d("tag", "Питомцы грузятся")
+            }
+            petsList
         }
-        petsList
+
+/*    fun getUserData(userId: String): User {
+        val userDocument = FirebaseFirestore.getInstance().collection("Users").document(userId).get()
+        val snapshot = userDocument.result
+
+        val name = snapshot.getString("name") ?: ""
+        val email = snapshot.getString("email") ?: ""
+        val phone = snapshot.getString("phone") ?: ""
+
+        return User(name, email, phone)
+    }*/
+
+
+
+
+
+    fun registerUser(userId: String, name: String, email: String, phone: String) {
+        val userCollection = fireStoreDb.collection("Users").document(userId)
+
+        val userData = hashMapOf(
+            "name" to name,
+            "email" to email,
+            "phone" to phone
+        )
+
+        userCollection.set(userData)
+            .addOnSuccessListener {
+                Log.d("TAG", "Пользователь успешно зарегистрирован с ID: $userId")
+            }
+            .addOnFailureListener { e ->
+                Log.d("TAG", "Ошибка при регистрации пользователя: $e")
+            }
+    }
+
+    fun createPet(
+        userId: String,
+        petId: String,
+        name: String,
+        birthday: Timestamp,
+        imageUrl: String,
+        species: String,
+        breed: String
+    ) {
+        val userPetsCollection =
+            fireStoreDb.collection("Users").document(userId).collection("Pets").document(petId)
+
+        val petData = hashMapOf(
+            "name" to name,
+            "birthday" to birthday,
+            "imageUrl" to imageUrl,
+            "species" to species,
+            "breed" to breed
+        )
+
+        userPetsCollection.set(petData)
+            .addOnSuccessListener {
+                Log.d("TAG", "Питомец успешно создан с ID: $petId")
+            }
+            .addOnFailureListener { e ->
+                Log.d("TAG", "Ошибка при создании питомца: $e")
+            }
+    }
+
+    fun createPetWithoutImage(
+        userId: String,
+        petId: String,
+        name: String,
+        birthday: Timestamp,
+        species: String,
+        breed: String
+    ) {
+        val userPetsCollection =
+            fireStoreDb.collection("Users").document(userId).collection("Pets").document(petId)
+
+        val petData = hashMapOf(
+            "name" to name,
+            "birthday" to birthday,
+            "species" to species,
+            "breed" to breed
+        )
+
+        userPetsCollection.set(petData)
+            .addOnSuccessListener {
+                Log.d("TAG", "Питомец успешно создан с ID: $petId")
+            }
+            .addOnFailureListener { e ->
+                Log.d("TAG", "Ошибка при создании питомца: $e")
+            }
     }
 
     private val inputListHome = mutableListOf(
@@ -114,8 +206,8 @@ class Repository {
         ),
     )
 
-    suspend fun getPetsData(): MutableList<RecyclerViewDataModels> {
-        val pets = getPets()
+    suspend fun getPetsData(userId: String): MutableList<RecyclerViewDataModels> {
+        val pets = getPets(userId)
         val inputListPets = mutableListOf<RecyclerViewDataModels>()
         inputListPets.add(RecyclerViewDataModels.ItemHeader("Мои питомцы"))
         inputListPets.addAll(pets)
@@ -123,15 +215,15 @@ class Repository {
         return inputListPets
     }
 
-    fun getHomeData(): MutableList<RecyclerViewDataModels>{
+    fun getHomeData(): MutableList<RecyclerViewDataModels> {
         return inputListHome
     }
 
-    fun getNotificationsData(): MutableList<RecyclerViewDataModels>{
+    fun getNotificationsData(): MutableList<RecyclerViewDataModels> {
         return inputListNotifications
     }
 
-    fun getServicesData(): MutableList<RecyclerViewDataModels>{
+    fun getServicesData(): MutableList<RecyclerViewDataModels> {
         return inputListServices
     }
 }

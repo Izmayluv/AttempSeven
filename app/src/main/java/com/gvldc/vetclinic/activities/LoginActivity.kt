@@ -25,7 +25,6 @@ class LoginActivity() : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         FirebaseApp.initializeApp(this)
-        auth.setLanguageCode("ru")
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -36,11 +35,10 @@ class LoginActivity() : AppCompatActivity() {
                 val email = editTextEmailAddress.text.toString().trim()
                 val password = editTextPassword.text.toString().trim()
 
-                if (email.isNullOrEmpty() || password.isNullOrEmpty()){
+                if (email.isNullOrEmpty() || password.isNullOrEmpty()) {
                     val message = "Введите данные"
                     Toast.makeText(binding.root.context, message, Toast.LENGTH_SHORT).show()
-                }
-                else{
+                } else {
                     signInWithEmailAndPassword(email, password)
                 }
             }
@@ -48,39 +46,39 @@ class LoginActivity() : AppCompatActivity() {
             textViewRegistration.setOnClickListener {
                 navigateToRegistrationScreen()
             }
-/*            buttonRegisterPhone.setOnClickListener {
-                val phoneNumber = phoneNumberEditText.text.toString()
-                startPhoneVerification(phoneNumber)
-            }*/
+            /*            buttonRegisterPhone.setOnClickListener {
+                            val phoneNumber = phoneNumberEditText.text.toString()
+                            startPhoneVerification(phoneNumber)
+                        }*/
         }
 
-/*        callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-            override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                // Автоматическое завершение верификации номера телефона
-                signInWithPhoneAuthCredential(credential)
-            }
+        /*        callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                    override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                        // Автоматическое завершение верификации номера телефона
+                        signInWithPhoneAuthCredential(credential)
+                    }
 
-            override fun onVerificationFailed(exception: FirebaseException) {
-                // Ошибка верификации номера телефона
-                Toast.makeText(
-                    this@LoginActivity,
-                    "Ошибка верификации номера телефона",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+                    override fun onVerificationFailed(exception: FirebaseException) {
+                        // Ошибка верификации номера телефона
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Ошибка верификации номера телефона",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
 
-            override fun onCodeSent(
-                verificationId: String,
-                token: PhoneAuthProvider.ForceResendingToken
-            ) {
-                // Код подтверждения отправлен на номер телефона
-                // Сохраните verificationId и token в SharedPreferences или переменных класса для использования в следующем шаге
-                // Перейдите к экрану для ввода кода подтверждения
-                val intent = Intent(this@LoginActivity, PhoneVerificationActivity::class.java)
-                intent.putExtra("verificationId", verificationId)
-                startActivity(intent)
-            }
-        }*/
+                    override fun onCodeSent(
+                        verificationId: String,
+                        token: PhoneAuthProvider.ForceResendingToken
+                    ) {
+                        // Код подтверждения отправлен на номер телефона
+                        // Сохраните verificationId и token в SharedPreferences или переменных класса для использования в следующем шаге
+                        // Перейдите к экрану для ввода кода подтверждения
+                        val intent = Intent(this@LoginActivity, PhoneVerificationActivity::class.java)
+                        intent.putExtra("verificationId", verificationId)
+                        startActivity(intent)
+                    }
+                }*/
 
 
     }
@@ -100,29 +98,29 @@ class LoginActivity() : AppCompatActivity() {
             }
     }
 
-/*    private fun startPhoneVerification(phoneNumber: String) {
-        val options = PhoneAuthOptions.newBuilder(auth)
-            .setPhoneNumber(phoneNumber)
-            .setTimeout(60L, TimeUnit.SECONDS)
-            .setActivity(this)
-            .setCallbacks(callbacks)
-            .build()
-        PhoneAuthProvider.verifyPhoneNumber(options)
-    }
+    /*    private fun startPhoneVerification(phoneNumber: String) {
+            val options = PhoneAuthOptions.newBuilder(auth)
+                .setPhoneNumber(phoneNumber)
+                .setTimeout(60L, TimeUnit.SECONDS)
+                .setActivity(this)
+                .setCallbacks(callbacks)
+                .build()
+            PhoneAuthProvider.verifyPhoneNumber(options)
+        }
 
-    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-        auth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Вход выполнен успешно
-                    navigateToMainScreen()
-                } else {
-                    // Вход не выполнен, обработка ошибки
-                    val message = task.exception?.message ?: "Ошибка входа"
-                    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+            auth.signInWithCredential(credential)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        // Вход выполнен успешно
+                        navigateToMainScreen()
+                    } else {
+                        // Вход не выполнен, обработка ошибки
+                        val message = task.exception?.message ?: "Ошибка входа"
+                        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
-    }*/
+        }*/
 
     private fun sendEmailVerification() {
         val user = auth.currentUser
@@ -130,10 +128,15 @@ class LoginActivity() : AppCompatActivity() {
             ?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Письмо с подтверждением отправлено
-                    Toast.makeText(this, "Письмо с подтверждением отправлено", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Письмо с подтверждением отправлено", Toast.LENGTH_SHORT)
+                        .show()
                 } else {
                     // Ошибка отправки письма с подтверждением
-                    Toast.makeText(this, "Ошибка отправки письма с подтверждением", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        "Ошибка отправки письма с подтверждением",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
     }

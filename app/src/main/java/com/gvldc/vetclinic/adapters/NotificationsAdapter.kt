@@ -8,7 +8,7 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.gvldc.vetclinic.databinding.ItemHeaderBinding
 import com.gvldc.vetclinic.databinding.ItemNotificationBinding
-import com.gvldc.vetclinic.models.ItemTypes
+import com.gvldc.vetclinic.utils.ItemTypes
 import com.gvldc.vetclinic.models.RecyclerViewDataModels
 import com.gvldc.vetclinic.viewholders.HeaderViewHolder
 import com.gvldc.vetclinic.viewholders.NotificationViewHolder

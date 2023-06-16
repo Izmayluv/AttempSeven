@@ -6,6 +6,8 @@
     <string name="miPetsTitle">Pets</string>
     <string name="yandexApiKey" tools:ignore="TypographyDashes">2e3ccb1e-23b2-4242-bdf3-f879bccfea7e</string>
     <string name="google_app_id">1:370611905186:android:61f923978a46b00cdaedfb</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
