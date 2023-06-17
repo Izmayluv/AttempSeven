@@ -2,11 +2,13 @@ package com.gvldc.vetclinic.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.gvldc.vetclinic.databinding.ChildRvBinding
 import com.gvldc.vetclinic.databinding.ItemButtonAboutClinicBinding
 import com.gvldc.vetclinic.databinding.ItemButtonAboutVetsBinding
 import com.gvldc.vetclinic.databinding.ItemButtonAppointmentBinding
-import com.gvldc.vetclinic.models.RecyclerViewDataModels
+import com.gvldc.vetclinic.models.RVDataModels
 import com.gvldc.vetclinic.utils.ItemTypes
 import com.gvldc.vetclinic.databinding.ItemHeaderBinding
 import com.gvldc.vetclinic.databinding.ItemHomeStartBinding
@@ -22,14 +24,18 @@ import com.gvldc.vetclinic.viewholders.ButtonClinicsInfoViewHolder
 import com.gvldc.vetclinic.viewholders.ButtonVetsInfoViewHolder
 import com.gvldc.vetclinic.viewholders.LogoViewHolder
 import com.gvldc.vetclinic.viewholders.NewsViewHolder
+import com.gvldc.vetclinic.viewholders.ParentViewHolder
 
-class HomePageAdapter(
+class ParentAdapter(
     private val appointmentClickListener: ItemAppointmentClickListener,
     private val vetsInfoClickListener: ItemVetsInfoClickListener,
-    private val clinicsInfoClickListener: ItemClinicsInfoClickListener
+    private val clinicsInfoClickListener: ItemClinicsInfoClickListener,
+
+
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-    private val adapterData: MutableList<RecyclerViewDataModels> = mutableListOf<RecyclerViewDataModels>()
+    private val adapterData: MutableList<RVDataModels> = mutableListOf()
+
 
     private lateinit var bindingStart: ItemHomeStartBinding
     private lateinit var bindingHeader: ItemHeaderBinding
@@ -38,6 +44,8 @@ class HomePageAdapter(
     private lateinit var bindingVets: ItemButtonAboutVetsBinding
     private lateinit var bindingLogo: ItemLogoBinding
     private lateinit var bindingNews: ItemNewsBinding
+    private lateinit var bindingChildRv: ChildRvBinding
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType){
 
@@ -48,6 +56,15 @@ class HomePageAdapter(
                     false
                 )
                 HeaderViewHolder(bindingHeader)
+            }
+
+            ItemTypes.CHILD_RECYCLER -> {
+                bindingChildRv = ChildRvBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                ParentViewHolder(bindingChildRv)
             }
 
             ItemTypes.BTN_CLINICS -> {
@@ -110,15 +127,17 @@ class HomePageAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (adapterData[position]) {
-            is RecyclerViewDataModels.ItemHomeStart -> ItemTypes.HOME_START
-            is RecyclerViewDataModels.ItemHeader -> ItemTypes.HEADER
-            is RecyclerViewDataModels.ItemAppointment -> ItemTypes.BTN_APPOINTMENT
-            is RecyclerViewDataModels.ItemVets -> ItemTypes.BTN_VETS
-            is RecyclerViewDataModels.ItemClinics -> ItemTypes.BTN_CLINICS
-            is RecyclerViewDataModels.ItemLogo -> ItemTypes.LOGO
-            is RecyclerViewDataModels.ItemNews -> ItemTypes.NEWS
-            else -> ItemTypes.PET
+        return when (val item = adapterData[position]) {
+            is RVDataModels.ItemHomeStart -> ItemTypes.HOME_START
+            is RVDataModels.ItemHeader -> ItemTypes.HEADER
+            is RVDataModels.ItemAppointment -> ItemTypes.BTN_APPOINTMENT
+            is RVDataModels.ItemVets -> ItemTypes.BTN_VETS
+            is RVDataModels.ItemClinics -> ItemTypes.BTN_CLINICS
+            is RVDataModels.ItemLogo -> ItemTypes.LOGO
+            is RVDataModels.ItemNews -> ItemTypes.NEWS
+            is RVDataModels.ParentModel -> ItemTypes.CHILD_RECYCLER
+
+            else -> throw IllegalArgumentException("Unsupported item type: ${item.javaClass.simpleName}")
         }
     }
 
@@ -126,49 +145,63 @@ class HomePageAdapter(
         holder: RecyclerView.ViewHolder,
         position: Int
     ) {
-        when(holder){
-            is HeaderViewHolder -> {
-                val header = adapterData[position] as RecyclerViewDataModels.ItemHeader
-                holder.bind(header)
+        when(val item = adapterData[position]){
+
+            is RVDataModels.ItemHeader -> {
+                val headerViewHolder = holder as HeaderViewHolder
+                headerViewHolder.bind(item)
             }
 
-            is HomeStartViewHolder -> {
-                val homeStart = adapterData[position] as RecyclerViewDataModels.ItemHomeStart
-                holder.bind(homeStart)
+            /*is RVDataModels.ParentModel -> {
+                val parentViewHolder = holder as ParentViewHolder
+                bindChildRecyclerView(parentViewHolder, item.list)
+            }*/
+
+            is RVDataModels.ParentModel -> {
+                val parentViewHolder = holder as ParentViewHolder
+                parentViewHolder.bind(item.list)
             }
 
-            is ButtonAppointmentViewHolder -> {
-                val homeButton = adapterData[position] as RecyclerViewDataModels.ItemAppointment
-                holder.bind(homeButton)
+            is RVDataModels.ItemHomeStart -> {
+                val homeStartViewHolder = holder as HomeStartViewHolder
+                homeStartViewHolder.bind(item)
             }
 
-            is ButtonClinicsInfoViewHolder -> {
-                val clinics = adapterData[position] as RecyclerViewDataModels.ItemClinics
-                holder.bind(clinics)
+            is RVDataModels.ItemAppointment -> {
+                val appointmentViewHolder = holder as ButtonAppointmentViewHolder
+                appointmentViewHolder.bind(item)
             }
 
-            is ButtonVetsInfoViewHolder -> {
-                val vets = adapterData[position] as RecyclerViewDataModels.ItemVets
-                holder.bind(vets)
+            is RVDataModels.ItemClinics -> {
+                val clinicsViewHolder = holder as ButtonClinicsInfoViewHolder
+                clinicsViewHolder.bind(item)
             }
 
-            is LogoViewHolder -> {
-                val logo = adapterData[position] as RecyclerViewDataModels.ItemLogo
-                holder.bind(logo)
+            is RVDataModels.ItemVets -> {
+                val vetsViewHolder = holder as ButtonVetsInfoViewHolder
+                vetsViewHolder.bind(item)
             }
 
-            is NewsViewHolder -> {
-                val news = adapterData[position] as RecyclerViewDataModels.ItemNews
-                holder.bind(news)
+            is RVDataModels.ItemLogo -> {
+                val logoViewHolder = holder as LogoViewHolder
+                logoViewHolder.bind(item)
             }
+
+            is RVDataModels.ItemNews -> {
+                val newsViewHolder = holder as NewsViewHolder
+                newsViewHolder.bind(item)
+            }
+
+            else -> throw IllegalArgumentException("Unsupported item type: ${item.javaClass.simpleName}")
         }
     }
 
-    fun setData(data: List<RecyclerViewDataModels>) {
+    fun setData(data: List<RVDataModels>) {
         adapterData.apply {
             clear()
             addAll(data)
         }
+        notifyDataSetChanged()
     }
 
 }

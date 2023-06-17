@@ -35,11 +35,18 @@ class UserFragment : Fragment(R.layout.fragment_user){
         bindingFragmentUser = FragmentUserBinding.inflate(layoutInflater)
 
         bindingFragmentUser.apply {
-            val user = viewModel.getUserData(FirebaseAuth.getInstance().currentUser?.uid.toString())
 
-/*            textViewUserEmail.text = "Почта: ${user.email}"
-            textViewUserName.text = user.name
-            textViewUserPhone.text = "Номер телефона: ${user.phone}"*/
+
+            FirebaseAuth.getInstance().currentUser?.let {
+                viewModel.getUserData(it.uid.toString()){ user ->
+                    if (user != null) {
+                        textViewUserName.text = user.name
+                        textViewUserPhone.text = "Номер телефона: ${user.phone}"
+                        textViewUserEmail.text = "Почта: ${user.email}"
+                    }
+                }
+            }
+
 
             buttonSignOut.setOnClickListener {
                 signOut()
@@ -48,6 +55,8 @@ class UserFragment : Fragment(R.layout.fragment_user){
 
         return bindingFragmentUser.root
     }
+
+
 
     private fun signOut() {
         auth.signOut()

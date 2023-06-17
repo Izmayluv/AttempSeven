@@ -1,10 +1,8 @@
 package com.gvldc.vetclinic.viewholders
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.gvldc.vetclinic.utils.MyUtils
-import com.gvldc.vetclinic.models.RecyclerViewDataModels
+import com.gvldc.vetclinic.models.RVDataModels
 import com.gvldc.vetclinic.databinding.ItemPetBinding
 import com.gvldc.vetclinic.fragments.PetsFragment
 
@@ -14,12 +12,13 @@ class PetViewHolder(
 ): RecyclerView.ViewHolder(
     binding.root
 ){
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun bind(pet: RecyclerViewDataModels.ItemPet){
+
+    fun bind(pet: RVDataModels.ItemPet){
 
         binding.apply {
             tvName.text = pet.name
-            tvAge.text = MyUtils.currentAge(pet.birthDay)
+            tvAge.text = MyUtils.stringToTimestamp(pet.birthDay,"dd.MM.yyyy")
+                ?.let { MyUtils.calculateAge(it) }
             tvBreed.text = pet.breed
 
             MyUtils.loadImageFromUrl(

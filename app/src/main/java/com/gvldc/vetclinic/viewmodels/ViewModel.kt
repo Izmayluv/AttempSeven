@@ -9,7 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.Timestamp
 import com.gvldc.vetclinic.R
 import com.gvldc.vetclinic.data.Repository
-import com.gvldc.vetclinic.models.RecyclerViewDataModels
+import com.gvldc.vetclinic.models.RVDataModels
 import com.gvldc.vetclinic.models.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,19 +17,9 @@ import kotlinx.coroutines.launch
 class ViewModel : ViewModel() {
 
     private val repository = Repository()
-
-    /*    val inputListPets: MutableList<RecyclerViewDataModels>
-            get() = repository.inputListPets
-        fun getPetsData(callback: (MutableList<RecyclerViewDataModels>) -> Unit){
-            viewModelScope.launch(Dispatchers.IO) {
-                val data = repository.getPetsData()
-                callback(data)
-            }
-        }*/
-
-    private val _petsData = MutableLiveData<List<RecyclerViewDataModels>>()
+    private val _petsData = MutableLiveData<List<RVDataModels>>()
     private var uid: String? = null
-    val petsData: LiveData<List<RecyclerViewDataModels>>
+    val petsData: LiveData<List<RVDataModels>>
         get() = _petsData
 
     fun fetchPetsData(userId: String) {
@@ -38,19 +28,6 @@ class ViewModel : ViewModel() {
             _petsData.value = data
         }
     }
-
-    private val userData = MutableLiveData<User>()
-
-/*    fun getUserData(userId: String) {
-        repository.getUserData(userId) { user ->
-            userData.value = user
-        }
-    }*/
-
-    // Другие функции и переменные вашего ViewModel
-
-    // Добавьте getter для LiveData userData, если вам нужно получить доступ к данным пользователя из фрагмента или активности
-    fun getUserLiveData(): LiveData<User> = userData
 
     fun createPet(
         userId: String,
@@ -75,6 +52,12 @@ class ViewModel : ViewModel() {
         repository.createPetWithoutImage(userId, petId, name, birthday, species, breed)
     }
 
+    fun getUserData(userId: String, callback: (User?) -> Unit) {
+        repository.getUserData(userId) { user ->
+            callback(user)
+        }
+    }
+
     fun getCurrentUID() {
         uid
     }
@@ -88,28 +71,35 @@ class ViewModel : ViewModel() {
         repository.registerUser(userId, name, email, phone)
     }
 
-    fun getHomeData(callback: (MutableList<RecyclerViewDataModels>) -> Unit) {
+    fun getHomeData(callback: (MutableList<RVDataModels>) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             val data = repository.getHomeData()
             callback(data)
         }
     }
 
-    fun getServicesData(callback: (MutableList<RecyclerViewDataModels>) -> Unit) {
+/*    fun getPromoList(callback: (MutableList<RVDataModels.ItemPromoViewPager>) -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val data = repository.getPromoList()
+            callback(data)
+        }
+    }*/
+
+    fun getServicesData(callback: (MutableList<RVDataModels>) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             val data = repository.getServicesData()
             callback(data)
         }
     }
 
-    fun getNotificationsData(callback: (MutableList<RecyclerViewDataModels>) -> Unit) {
+    fun getNotificationsData(callback: (MutableList<RVDataModels>) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             val data = repository.getNotificationsData()
             callback(data)
         }
     }
 
-    var sharedPet: RecyclerViewDataModels.ItemPet? = null
+    var sharedPet: RVDataModels.ItemPet? = null
 
     private val _isBottomNavMenuVisible = MutableLiveData<Boolean>(true)
     val isBottomNavMenuVisible: LiveData<Boolean>

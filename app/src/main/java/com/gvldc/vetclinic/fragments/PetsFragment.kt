@@ -8,12 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 import com.gvldc.vetclinic.R
 import com.gvldc.vetclinic.activities.MainActivity
 import com.gvldc.vetclinic.adapters.PetsAdapter
 import com.gvldc.vetclinic.databinding.FragmentAddPetBinding
-import com.gvldc.vetclinic.models.RecyclerViewDataModels
+import com.gvldc.vetclinic.models.RVDataModels
 import com.gvldc.vetclinic.databinding.FragmentPetsBinding
 import com.gvldc.vetclinic.interfaces.ItemClickListener
 import com.gvldc.vetclinic.viewmodels.ViewModel
@@ -60,7 +59,7 @@ class PetsFragment : Fragment(R.layout.fragment_pets), ItemClickListener {
     }
 
     override fun onRecyclerViewItemClick(position: Int) {
-        val pet = viewModel.petsData.value?.get(position) as? RecyclerViewDataModels.ItemPet
+        val pet = viewModel.petsData.value?.get(position) as? RVDataModels.ItemPet
         viewModel.sharedPet = pet
 
         val selectedPetFragment = SelectedPetFragment()

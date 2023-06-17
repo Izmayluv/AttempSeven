@@ -1,5 +1,6 @@
 package com.gvldc.vetclinic.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
@@ -49,6 +50,8 @@ class MainActivity : AppCompatActivity() {
             // Пользователь не авторизован, перейдите к экрану входа/регистрации
             navigateToLoginScreen()
         }
+
+       // viewModel.showBottomNavMenu(Activity())
 
         MapKitFactory.setApiKey("2e3ccb1e-23b2-4242-bdf3-f879bccfea7e")
 

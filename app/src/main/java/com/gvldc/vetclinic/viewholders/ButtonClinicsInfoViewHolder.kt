@@ -3,14 +3,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gvldc.vetclinic.databinding.ItemButtonAboutClinicBinding
 import com.gvldc.vetclinic.utils.MyUtils
 import com.gvldc.vetclinic.interfaces.ItemClinicsInfoClickListener
-import com.gvldc.vetclinic.models.RecyclerViewDataModels
+import com.gvldc.vetclinic.models.RVDataModels
 
 class ButtonClinicsInfoViewHolder(
     private val binding: ItemButtonAboutClinicBinding,
     private val listener: ItemClinicsInfoClickListener
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(clinics: RecyclerViewDataModels.ItemClinics){
+    fun bind(clinics: RVDataModels.ItemClinics){
 
         binding.apply {
             textView.text = clinics.action

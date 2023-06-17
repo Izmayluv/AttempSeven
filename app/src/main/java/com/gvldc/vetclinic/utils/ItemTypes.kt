@@ -2,9 +2,6 @@ package com.gvldc.vetclinic.utils
 
 object ItemTypes {
 
-    const val VIEW_PAGER = 100
-    const val VIEW_PAGER_PROMO = 101
-
     const val HEADER = 1
     const val HOME_START = 2
     const val PET = 3
@@ -15,4 +12,6 @@ object ItemTypes {
     const val LOGO = 8
     const val NEWS = 9
     const val NOTIFICATION = 10
+    const val CHILD_RECYCLER = 11
+
 }

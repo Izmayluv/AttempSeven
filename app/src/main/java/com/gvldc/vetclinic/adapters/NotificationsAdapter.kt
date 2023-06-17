@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gvldc.vetclinic.databinding.ItemHeaderBinding
 import com.gvldc.vetclinic.databinding.ItemNotificationBinding
 import com.gvldc.vetclinic.utils.ItemTypes
-import com.gvldc.vetclinic.models.RecyclerViewDataModels
+import com.gvldc.vetclinic.models.RVDataModels
 import com.gvldc.vetclinic.viewholders.HeaderViewHolder
 import com.gvldc.vetclinic.viewholders.NotificationViewHolder
 
 class NotificationsAdapter () : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var adapterData: MutableList<RecyclerViewDataModels> = mutableListOf<RecyclerViewDataModels>()
+    private var adapterData: MutableList<RVDataModels> = mutableListOf<RVDataModels>()
 
     private lateinit var bindingHeader: ItemHeaderBinding
     private lateinit var bindingNotification: ItemNotificationBinding
@@ -49,11 +49,11 @@ class NotificationsAdapter () : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     ) {
         when (holder) {
             is NotificationViewHolder -> {
-                val notification = adapterData[position] as RecyclerViewDataModels.ItemNotification
+                val notification = adapterData[position] as RVDataModels.ItemNotification
                 holder.bind(notification)
             }
             is HeaderViewHolder -> {
-                val header = adapterData[position] as RecyclerViewDataModels.ItemHeader
+                val header = adapterData[position] as RVDataModels.ItemHeader
                 holder.bind(header)
             }
         }
@@ -61,7 +61,7 @@ class NotificationsAdapter () : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
     override fun getItemViewType(position: Int): Int {
         return when (adapterData[position]) {
-            is RecyclerViewDataModels.ItemNotification -> ItemTypes.NOTIFICATION
+            is RVDataModels.ItemNotification -> ItemTypes.NOTIFICATION
             else -> ItemTypes.HEADER
         }
     }
@@ -71,7 +71,7 @@ class NotificationsAdapter () : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(newData: MutableList<RecyclerViewDataModels>) {
+    fun setData(newData: MutableList<RVDataModels>) {
         adapterData = newData
         notifyDataSetChanged()
     }

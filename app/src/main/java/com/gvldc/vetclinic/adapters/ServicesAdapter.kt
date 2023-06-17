@@ -1,10 +1,8 @@
 package com.gvldc.vetclinic.adapters
 
 import android.annotation.SuppressLint
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.gvldc.vetclinic.utils.ItemTypes
 import com.gvldc.vetclinic.databinding.ItemHeaderBinding
@@ -12,13 +10,13 @@ import com.gvldc.vetclinic.databinding.ItemServiceBinding
 import com.gvldc.vetclinic.fragments.ChooseServiceFragment
 import com.gvldc.vetclinic.viewholders.HeaderViewHolder
 import com.gvldc.vetclinic.viewholders.ServiceViewHolder
-import com.gvldc.vetclinic.models.RecyclerViewDataModels
+import com.gvldc.vetclinic.models.RVDataModels
 
 class ServicesAdapter(
     private val listener: ChooseServiceFragment
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var adapterData: MutableList<RecyclerViewDataModels> = mutableListOf<RecyclerViewDataModels>()
+    private var adapterData: MutableList<RVDataModels> = mutableListOf<RVDataModels>()
 
     private lateinit var bindingService: ItemServiceBinding
     private lateinit var bindingHeader: ItemHeaderBinding
@@ -44,15 +42,14 @@ class ServicesAdapter(
             }
         }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is ServiceViewHolder -> {
-                val service = adapterData[position] as RecyclerViewDataModels.ItemService
+                val service = adapterData[position] as RVDataModels.ItemService
                 holder.bind(service)
             }
             is HeaderViewHolder -> {
-                val header = adapterData[position] as RecyclerViewDataModels.ItemHeader
+                val header = adapterData[position] as RVDataModels.ItemHeader
                 holder.bind(header)
             }
         }
@@ -64,13 +61,13 @@ class ServicesAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (adapterData[position]) {
-            is RecyclerViewDataModels.ItemService -> ItemTypes.SERVICE
+            is RVDataModels.ItemService -> ItemTypes.SERVICE
             else -> ItemTypes.HEADER
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(newData: MutableList<RecyclerViewDataModels>) {
+    fun setData(newData: MutableList<RVDataModels>) {
         adapterData = newData
         notifyDataSetChanged()
     }

@@ -1,70 +1,68 @@
 package com.gvldc.vetclinic.models
 
-import java.util.Date
-
-sealed class RecyclerViewDataModels{
+sealed class RVDataModels {
 
     data class ItemHeader(
         val title: String
-    ): RecyclerViewDataModels()
+    ) : RVDataModels()
 
     data class ItemHomeStart(
-       val text: String,
-       val imageUrlOne: String,
-       val imageUrlTwo: String,
-       val imageUrlThree: String,
-       val imageUrlFour: String
-    ): RecyclerViewDataModels()
+        val text: String,
+        val imageUrlOne: String,
+        val imageUrlTwo: String,
+        val imageUrlThree: String,
+        val imageUrlFour: String
+    ) : RVDataModels()
 
     data class ItemPet(
         val name: String,
         val imageUrl: String,
-        val birthDay: Date,
+        val birthDay: String,
         val breed: String,
-    ): RecyclerViewDataModels()
+    ) : RVDataModels()
 
     data class ItemAppointment(
         val action: String,
         val imageUrl: String
-    ): RecyclerViewDataModels()
+    ) : RVDataModels()
 
     data class ItemClinics(
         val action: String,
         val imageUrl: String
-    ): RecyclerViewDataModels()
+    ) : RVDataModels()
 
     data class ItemVets(
         val action: String,
         val imageUrl: String
-    ): RecyclerViewDataModels()
+    ) : RVDataModels()
 
     data class ItemLogo(
         val imageUrl: String
-    ): RecyclerViewDataModels()
+    ) : RVDataModels()
 
     data class ItemNews(
         val title: String,
         val news: String,
         val imageUrl: String
-    ): RecyclerViewDataModels()
+    ) : RVDataModels()
 
     data class ItemNotification(
         val title: String,
         val message: String,
         val datetime: String
-    ): RecyclerViewDataModels()
+    ) : RVDataModels()
 
     data class ItemService(
         val serviceDirection: String,
         val description: String,
         val imageUrl: String
-    ): RecyclerViewDataModels()
+    ) : RVDataModels()
 
-    data class ItemPromoViewPager(
+    data class ParentModel(
+        val list: MutableList<ChildModel>
+    ) : RVDataModels()
+
+    data class ChildModel(
         val imageUrl: String
-    ): RecyclerViewDataModels()
-
-    data class ViewPager(
-        val list: MutableList<RecyclerViewDataModels>
-    ): RecyclerViewDataModels()
+    ) : RVDataModels()
 }

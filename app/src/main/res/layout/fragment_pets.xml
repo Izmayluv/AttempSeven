@@ -28,6 +28,7 @@
         android:clickable="true"
         android:contentDescription="TODO"
         android:focusable="true"
+        android:backgroundTint="@color/colorSecondary"
         android:src="@android:drawable/ic_menu_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.temporal.ChronoUnit
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.UUID
@@ -59,7 +60,7 @@ class MyUtils {
             return dateFormat.format(date)
         }
 
-        @RequiresApi(Build.VERSION_CODES.O)
+/*        @RequiresApi(Build.VERSION_CODES.O)
         fun currentAge(date: Date?): String {
             val yearsOld = ChronoUnit.YEARS.between(
                 date?.toInstant()?.atZone(ZoneId.systemDefault())?.toLocalDate(),
@@ -67,16 +68,35 @@ class MyUtils {
             )
 
             return yearsOld.toString() + " " + addStringYearEnding(yearsOld)
-        }
+        }*/
 
-        private fun addStringYearEnding(time: Long): String {
-            val lastDigit = time % 10
-            return when (lastDigit.toInt()) {
+        private fun addStringYearEnding(time: Int): String {
+            return when (time % 10) {
                 1 -> "год"
                 2, 3, 4 -> "года"
                 0, 5, 6, 7, 8, 9 -> "лет"
                 else -> "года"
             }
+        }
+
+        fun calculateAge(timestamp: Timestamp): String {
+            val currentDate = Calendar.getInstance().time
+            val birthDate = timestamp.toDate()
+
+            val currentCalendar = Calendar.getInstance()
+            val birthCalendar = Calendar.getInstance()
+            currentCalendar.time = currentDate
+            birthCalendar.time = birthDate
+
+            var ageInYears = currentCalendar.get(Calendar.YEAR) - birthCalendar.get(Calendar.YEAR)
+            if (currentCalendar.get(Calendar.MONTH) < birthCalendar.get(Calendar.MONTH) ||
+                (currentCalendar.get(Calendar.MONTH) == birthCalendar.get(Calendar.MONTH) &&
+                        currentCalendar.get(Calendar.DAY_OF_MONTH) < birthCalendar.get(Calendar.DAY_OF_MONTH))
+            ) {
+                ageInYears--
+            }
+
+            return "$ageInYears ${addStringYearEnding(ageInYears)}"
         }
 
         fun dateToString(date: Date?): String {

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.gvldc.vetclinic.databinding.ItemPetBinding
-import com.gvldc.vetclinic.models.RecyclerViewDataModels
+import com.gvldc.vetclinic.models.RVDataModels
 import com.gvldc.vetclinic.utils.ItemTypes.HEADER
 import com.gvldc.vetclinic.utils.ItemTypes.PET
 import com.gvldc.vetclinic.databinding.ItemHeaderBinding
@@ -19,7 +19,7 @@ class PetsAdapter(
     private val listener: PetsFragment
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var adapterData: MutableList<RecyclerViewDataModels> = mutableListOf<RecyclerViewDataModels>()
+    private var adapterData: MutableList<RVDataModels> = mutableListOf<RVDataModels>()
 
     private lateinit var bindingHeader: ItemHeaderBinding
     private lateinit var bindingPet: ItemPetBinding
@@ -61,11 +61,11 @@ class PetsAdapter(
     ) {
         when (holder) {
             is PetViewHolder -> {
-                val pet = adapterData[position] as RecyclerViewDataModels.ItemPet
+                val pet = adapterData[position] as RVDataModels.ItemPet
                 holder.bind(pet)
             }
             is HeaderViewHolder -> {
-                val header = adapterData[position] as RecyclerViewDataModels.ItemHeader
+                val header = adapterData[position] as RVDataModels.ItemHeader
                 holder.bind(header)
             }
         }
@@ -73,7 +73,7 @@ class PetsAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (adapterData[position]) {
-            is RecyclerViewDataModels.ItemPet -> PET
+            is RVDataModels.ItemPet -> PET
             else -> HEADER
         }
     }
@@ -83,7 +83,7 @@ class PetsAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(newData: MutableList<RecyclerViewDataModels>) {
+    fun setData(newData: MutableList<RVDataModels>) {
         adapterData = newData
         notifyDataSetChanged()
     }

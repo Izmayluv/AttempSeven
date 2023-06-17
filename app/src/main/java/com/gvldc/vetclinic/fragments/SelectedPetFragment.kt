@@ -30,7 +30,7 @@ class SelectedPetFragment : Fragment(R.layout.fragment_selected_pet) {
 
         val name = "${pet?.name}\n"
         val breed = "${pet?.breed}\n"
-        val birthDay = MyUtils.dateToString(pet?.birthDay)
+        val birthDay = "${pet?.birthDay}"
 
         binding.apply {
 
