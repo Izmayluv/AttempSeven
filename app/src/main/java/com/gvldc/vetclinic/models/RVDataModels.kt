@@ -65,4 +65,12 @@ sealed class RVDataModels {
     data class ChildModel(
         val imageUrl: String
     ) : RVDataModels()
+
+    data class VetInfo(
+        val imageUrl: String,
+        val name: String,
+        val species: String,
+        val receptionFrom: String,
+        val education: String
+    ) : RVDataModels()
 }

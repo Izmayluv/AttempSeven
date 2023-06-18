@@ -7,11 +7,42 @@
     android:layout_height="match_parent"
     tools:context=".fragments.SelectedPetFragment">
 
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Майкл"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvBreed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Египетский мау"
+        app:layout_constraintEnd_toEndOf="@+id/tvName"
+        app:layout_constraintStart_toStartOf="@+id/tvName"
+        app:layout_constraintTop_toBottomOf="@+id/tvName" />
+
+    <TextView
+        android:id="@+id/tvAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="01.05.2020"
+        app:layout_constraintEnd_toEndOf="@+id/tvBreed"
+        app:layout_constraintStart_toStartOf="@+id/tvBreed"
+        app:layout_constraintTop_toBottomOf="@+id/tvBreed" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvAge"
         card_view:cardBackgroundColor="@color/background"
@@ -36,102 +67,58 @@
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_medium"
-        android:text="a"
-        android:textAlignment="center"
-        android:textColor="@color/grey"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvBreed"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.464"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
-
-    <TextView
-        android:id="@+id/tvAge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="c"
-        android:textAlignment="center"
-        android:textColor="@color/itemMenuActive"
-        android:textSize="21sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.465"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBreed" />
-
-    <TextView
-        android:id="@+id/tvBreed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="b"
-        android:textAlignment="center"
-        android:textColor="@color/itemMenuActive"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.464"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvName" />
-
-    <Button
-        android:id="@+id/ParasiteTreatment"
-        style="@style/RegularButtonStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Обработка от паразитов"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/buttonVaccination" />
 
     <Button
         android:id="@+id/buttonAppointment"
         style="@style/RegularButtonStyle"
+        android:background="@drawable/custom_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="Запись к ветеринару"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/tvAge" />
+        app:layout_constraintTop_toTopOf="@+id/cardView" />
 
     <Button
         android:id="@+id/buttonMedicalHistory"
         style="@style/RegularButtonStyle"
+        android:background="@drawable/custom_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:text="История посещений"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/buttonAppointment" />
 
     <Button
         android:id="@+id/buttonVaccination"
         style="@style/RegularButtonStyle"
+        android:background="@drawable/custom_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:text="Сроки вакцинации"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/buttonMedicalHistory" />
 
+    <Button
+        android:id="@+id/ParasiteTreatment"
+        style="@style/RegularButtonStyle"
+        android:background="@drawable/custom_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:text="Обработка от паразитов"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/buttonVaccination" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

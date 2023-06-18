@@ -58,15 +58,6 @@ class ViewModel : ViewModel() {
         }
     }
 
-    fun getCurrentUID() {
-        uid
-    }
-
-    fun setCurrentUser(userId: String) {
-        uid = userId
-    }
-
-
     fun registerUser(userId: String, name: String, email: String, phone: String) {
         repository.registerUser(userId, name, email, phone)
     }
@@ -78,16 +69,16 @@ class ViewModel : ViewModel() {
         }
     }
 
-/*    fun getPromoList(callback: (MutableList<RVDataModels.ItemPromoViewPager>) -> Unit) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val data = repository.getPromoList()
-            callback(data)
-        }
-    }*/
-
     fun getServicesData(callback: (MutableList<RVDataModels>) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             val data = repository.getServicesData()
+            callback(data)
+        }
+    }
+
+    fun getVetsInfoData(callback: (MutableList<RVDataModels.VetInfo>) -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val data = repository.getVetsInfo()
             callback(data)
         }
     }
@@ -110,7 +101,7 @@ class ViewModel : ViewModel() {
         activity.window.navigationBarColor = ContextCompat
             .getColor(
                 activity.applicationContext,
-                R.color.background
+                R.color.transparent
             )
     }
 

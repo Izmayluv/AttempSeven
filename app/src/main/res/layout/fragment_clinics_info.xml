@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.ClinicsInfoFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewMap"
+        style="@style/CardViewButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="330dp">
+
+        <com.yandex.mapkit.mapview.MapView
+            android:id="@+id/mapViewClinicsInfo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewInfo"
+        style="@style/CardViewButton"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewMap"
+        app:layout_editor_absoluteY="400dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textViewContacs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/grey"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Контакты"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewClinicPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/colorSecondary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_medium"
+                android:text="8 812 660 - 77 - 80"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewContacs" />
+
+            <TextView
+                android:id="@+id/textViewClinicPlace1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/itemMenuActive"
+                android:textSize="16sp"
+                android:fontFamily="@font/roboto"
+                android:textAlignment="center"
+                android:paddingHorizontal="8dp"
+                android:text="г. Санкт-Петербург, улица Турку д. 11 к. 2.\nВход со двора"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewClinicPhone" />
+
+            <TextView
+                android:id="@+id/textViewClinicTime1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/itemMenuActive"
+                android:textSize="16sp"
+                android:fontFamily="@font/roboto"
+                android:text="График работы: 24 часа"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewClinicPlace1" />
+
+            <TextView
+                android:id="@+id/textViewClinicPlace2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/itemMenuActive"
+                android:textSize="16sp"
+                android:fontFamily="@font/roboto"
+                android:textAlignment="center"
+                android:paddingHorizontal="8dp"
+                android:text="г. Санкт-Петербург, Будапештская улица, д. 67.
+\nВход между лабораторией Инвитро и аптекой Столички"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewClinicTime1" />
+
+            <TextView
+                android:id="@+id/textViewClinicTime2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/itemMenuActive"
+                android:textSize="16sp"
+                android:fontFamily="@font/roboto"
+                android:text="График работы: 10:00-22:00"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewClinicPlace2" />
+
+            <TextView
+                android:id="@+id/textViewClinicPlace3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto"
+                android:textAlignment="center"
+                android:paddingHorizontal="8dp"
+                android:text="г. Санкт-Петербург, Петергофское шоссе, д. 47, к.2 \nВход рядом с рестораном Малат и лабораторией Инвитро"
+                android:textColor="@color/itemMenuActive"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewClinicTime2" />
+
+            <TextView
+                android:id="@+id/textViewClinicTime3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/itemMenuActive"
+                android:textSize="16sp"
+                android:fontFamily="@font/roboto"
+                android:text="График работы: 24 часа"
+                android:gravity="start"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewClinicPlace3" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

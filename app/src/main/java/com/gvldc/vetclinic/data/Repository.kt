@@ -200,8 +200,6 @@ class Repository {
         )
     )
 
-
-
     private val inputListServices = mutableListOf(
         RVDataModels.ItemHeader(
             "Выберите услугу"
@@ -211,6 +209,31 @@ class Repository {
             "В ходе обследования врач выполняет осмотр. На основании полученных данных проконсультирует владельца о необходимых в дальнейшем действиях.",
             "https://zoostatus.ru/upload/zoostatus-articles-foto/pervichniy_osmotr/pervichnii_osmotr_1.jpg"
         )
+    )
+
+    private val inputListVetsInfo = mutableListOf(
+        RVDataModels.VetInfo(
+        "https://animal-doc.ru/upload/iblock/262/2621f1b4cdd9c5a9beeda778d1b00fc5.png",
+        "Балашова Татьяна Алексеевна",
+            "Терапевт, специалист по интенсивной терапии, эндокринолог",
+        "В клинике на Турку и Будапештской",
+        "Окончила Санкт-Петербургскую государственную академию ветеринарной медицины в 2010г. За плечами Татьяны Алексеевны более 7 лет практической деятельности, внимательного отношения к пациентам и помощи бездомным животным"
+        ),
+        RVDataModels.VetInfo(
+            "https://animal-doc.ru/upload/iblock/b8b/b8b05ac3b3a24b42e4ccbaeecd9e1065.png",
+            "Фомин Александр Александрович",
+            "Невролог, хирург, ортопед",
+            "По записи в клинике на Петергофском шоссе 47к2 и на Турку д.11 к.2",
+"Бологовский аграрный колледж, диплом с отличием - Санкт-Петербургская Государственная Академия Ветеринарной Медицины (СПбГАВМ), диплом с отличием"
+        ),
+        RVDataModels.VetInfo(
+            "https://animal-doc.ru/upload/iblock/f7a/f7ae70c4e2104779779bfd6b67c97199.png",
+            "Ипатов Дмитрий Сергеевич",
+            "Терапевт, хирург, специалист УЗИ, рентгенолог",
+            "В клинике на Петергофском шоссе",
+            "Окончил Санкт-Петербургскую государственную академию ветеринарной медицины в 2003г. С 2015 года Дмитрий Сергеевич работает в сети клиник ГВЛДЦ№1. За его плечами более 15 лет опыта работы. Дмитрий Сергеевич работает с мелкими домашними животными (кошки, собаки, хорьки), интересуется фелинологией (наука о кошках)"
+            ),
+
     )
 
     private val inputListNotifications = mutableListOf(
@@ -255,7 +278,7 @@ class Repository {
         return inputListServices
     }
 
-/*    fun getPromoList(): MutableList<RVDataModels.ItemPromoViewPager>{
-        return promoList
-    }*/
+    fun getVetsInfo(): MutableList<RVDataModels.VetInfo>{
+        return inputListVetsInfo
+    }
 }

@@ -16,21 +16,6 @@ class HomeStartViewHolder(
                 itemHome.imageUrlOne,
                 ivOne
             )
-
-/*            MyUtils.loadImageFromUrl(
-                itemHome.imageUrlTwo,
-                ivTwo
-            )
-
-            MyUtils.loadImageFromUrl(
-                itemHome.imageUrlThree,
-                ivThree
-            )
-
-            MyUtils.loadImageFromUrl(
-                itemHome.imageUrlFour,
-                ivFour
-            )*/
         }
     }
 }

@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gvldc.vetclinic.databinding.ItemPromoBinding
 import com.gvldc.vetclinic.models.RVDataModels
+import com.gvldc.vetclinic.utils.ItemTypes
 import com.gvldc.vetclinic.viewholders.ChildViewHolder
 
 class ChildAdapter(
@@ -16,7 +17,7 @@ class ChildAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType){
-            111 -> {
+            ItemTypes.CHILD_RECYCLER -> {
                 bindingItemPromo = ItemPromoBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,

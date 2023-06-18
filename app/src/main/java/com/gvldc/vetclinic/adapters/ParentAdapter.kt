@@ -152,11 +152,6 @@ class ParentAdapter(
                 headerViewHolder.bind(item)
             }
 
-            /*is RVDataModels.ParentModel -> {
-                val parentViewHolder = holder as ParentViewHolder
-                bindChildRecyclerView(parentViewHolder, item.list)
-            }*/
-
             is RVDataModels.ParentModel -> {
                 val parentViewHolder = holder as ParentViewHolder
                 parentViewHolder.bind(item.list)

@@ -18,8 +18,4 @@ class ParentViewHolder (val binding: ChildRvBinding) : RecyclerView.ViewHolder(b
         }
         childAdapter.setData(childData)
     }
-   /* fun bind(childModel: RVDataModels.ChildModel, parentAdapterData:MutableList<RVDataModels>){
-        binding.rvChild.adapter()
-    }*/
-
 }

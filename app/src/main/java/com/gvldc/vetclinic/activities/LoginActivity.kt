@@ -18,7 +18,6 @@ import java.util.concurrent.TimeUnit
 class LoginActivity() : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,41 +45,7 @@ class LoginActivity() : AppCompatActivity() {
             textViewRegistration.setOnClickListener {
                 navigateToRegistrationScreen()
             }
-            /*            buttonRegisterPhone.setOnClickListener {
-                            val phoneNumber = phoneNumberEditText.text.toString()
-                            startPhoneVerification(phoneNumber)
-                        }*/
         }
-
-        /*        callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                    override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                        // Автоматическое завершение верификации номера телефона
-                        signInWithPhoneAuthCredential(credential)
-                    }
-
-                    override fun onVerificationFailed(exception: FirebaseException) {
-                        // Ошибка верификации номера телефона
-                        Toast.makeText(
-                            this@LoginActivity,
-                            "Ошибка верификации номера телефона",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-
-                    override fun onCodeSent(
-                        verificationId: String,
-                        token: PhoneAuthProvider.ForceResendingToken
-                    ) {
-                        // Код подтверждения отправлен на номер телефона
-                        // Сохраните verificationId и token в SharedPreferences или переменных класса для использования в следующем шаге
-                        // Перейдите к экрану для ввода кода подтверждения
-                        val intent = Intent(this@LoginActivity, PhoneVerificationActivity::class.java)
-                        intent.putExtra("verificationId", verificationId)
-                        startActivity(intent)
-                    }
-                }*/
-
-
     }
 
     private fun signInWithEmailAndPassword(email: String, password: String) {
@@ -97,30 +62,6 @@ class LoginActivity() : AppCompatActivity() {
                 }
             }
     }
-
-    /*    private fun startPhoneVerification(phoneNumber: String) {
-            val options = PhoneAuthOptions.newBuilder(auth)
-                .setPhoneNumber(phoneNumber)
-                .setTimeout(60L, TimeUnit.SECONDS)
-                .setActivity(this)
-                .setCallbacks(callbacks)
-                .build()
-            PhoneAuthProvider.verifyPhoneNumber(options)
-        }
-
-        private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-            auth.signInWithCredential(credential)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        // Вход выполнен успешно
-                        navigateToMainScreen()
-                    } else {
-                        // Вход не выполнен, обработка ошибки
-                        val message = task.exception?.message ?: "Ошибка входа"
-                        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-                    }
-                }
-        }*/
 
     private fun sendEmailVerification() {
         val user = auth.currentUser

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.gvldc.vetclinic.R
+import com.gvldc.vetclinic.activities.MainActivity
 import com.gvldc.vetclinic.adapters.GridItemDecoration
 import com.gvldc.vetclinic.adapters.ParentAdapter
 import com.gvldc.vetclinic.databinding.FragmentHomeBinding
@@ -73,14 +74,26 @@ class HomeFragment : Fragment(R.layout.fragment_home),
     }
 
     override fun onRecyclerViewClinicsInfoClick(position: Int) {
-        Toast.makeText(context, "Информация о клиниках", Toast.LENGTH_SHORT).show()
+        val clinicsInfoFragment = ClinicsInfoFragment()
+
+        val mainActivity = requireActivity() as MainActivity
+        mainActivity.supportFragmentManager.beginTransaction()
+            .replace(R.id.flFragment, clinicsInfoFragment)
+            .addToBackStack(null)
+            .commit()
+        //Toast.makeText(context, "Информация о клиниках", Toast.LENGTH_SHORT).show()
     }
 
     override fun onRecyclerViewVetsInfoClick(position: Int) {
-        Toast.makeText(context, "Информация о ветеринарах", Toast.LENGTH_SHORT).show()
+        val vetsInfoFragment = VetsInfoFragment()
+
+        val mainActivity = requireActivity() as MainActivity
+        mainActivity.supportFragmentManager.beginTransaction()
+            .replace(R.id.flFragment, vetsInfoFragment)
+            .addToBackStack(null)
+            .commit()
+       // Toast.makeText(context, "Информация о ветеринарах", Toast.LENGTH_SHORT).show()
     }
 
-    /*    override fun onViewPagerPromoClick(position: Int) {
-            Toast.makeText(context, "Акция $position", Toast.LENGTH_SHORT).show()
-        }*/
+
 }
