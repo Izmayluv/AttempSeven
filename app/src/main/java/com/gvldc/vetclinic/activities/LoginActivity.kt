@@ -30,11 +30,14 @@ class LoginActivity() : AppCompatActivity() {
 
         binding.apply {
 
+
+
             buttonLogin.setOnClickListener {
+
                 val email = editTextEmailAddress.text.toString().trim()
                 val password = editTextPassword.text.toString().trim()
 
-                if (email.isNullOrEmpty() || password.isNullOrEmpty()) {
+                if (email.isEmpty() || password.isEmpty()) {
                     val message = "Введите данные"
                     Toast.makeText(binding.root.context, message, Toast.LENGTH_SHORT).show()
                 } else {
@@ -45,16 +48,40 @@ class LoginActivity() : AppCompatActivity() {
             textViewRegistration.setOnClickListener {
                 navigateToRegistrationScreen()
             }
+
+            textViewRecovery.setOnClickListener {
+                val email = editTextEmailAddress.text.toString().trim()
+
+                if (email.isEmpty()) {
+                    val message = "Введите почту"
+                    Toast.makeText(binding.root.context, message, Toast.LENGTH_SHORT).show()
+                } else {
+                    sendPasswordRecoveryEmail(email)
+                }
+            }
         }
     }
 
     private fun signInWithEmailAndPassword(email: String, password: String) {
-
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Вход выполнен успешно
                     navigateToMainScreen()
+                } else {
+                    // Вход не выполнен, обработка ошибки
+                    val message = task.exception?.message ?: "Ошибка входа"
+                    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+    private fun sendPasswordRecoveryEmail(email: String) {
+        auth.sendPasswordResetEmail(email)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val message = "Письмо восстановления отправлено\n на почту $email"
+                    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
                 } else {
                     // Вход не выполнен, обработка ошибки
                     val message = task.exception?.message ?: "Ошибка входа"
