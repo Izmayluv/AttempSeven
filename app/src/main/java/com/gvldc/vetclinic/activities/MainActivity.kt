@@ -1,17 +1,26 @@
 package com.gvldc.vetclinic.activities
 
+import android.Manifest
 import android.app.Activity
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.content.res.ColorStateList
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.firebase.FirebaseApp
@@ -42,11 +51,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel by viewModels<ViewModel>()
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val notificationManager = NotificationManagerCompat.from(this)
+        notificationManager.cancel(123)
 
         val messaging = FirebaseMessaging.getInstance()
 
@@ -57,6 +70,9 @@ class MainActivity : AppCompatActivity() {
             val token = task.result
             Log.d(NotificationService.TAG, "Token: $token")
         }
+
+        notificationsProcessing()
+
 
 /*        messaging.subscribeToTopic("vetclinic")
             .addOnCompleteListener { task ->
@@ -151,10 +167,48 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        val notificationManager = NotificationManagerCompat.from(this)
+        notificationManager.cancel(123)
+    }
+
     private fun setCurrentFragment(fragment: Fragment){
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.flFragment, fragment)
             commit()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun notificationsProcessing() {
+        val notificationManagerCompat = NotificationManagerCompat.from(this)
+        val areNotificationsEnabled = notificationManagerCompat.areNotificationsEnabled()
+        if (areNotificationsEnabled) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val channel = NotificationChannel(
+                    "123",
+                    "Имя канала",
+                    NotificationManager.IMPORTANCE_HIGH
+                )
+                channel.enableLights(true)
+                channel.enableVibration(true)
+
+                val notificationManager = getSystemService(NotificationManager::class.java)
+                notificationManager.createNotificationChannel(channel)
+            }
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                    123
+                )
+            }
         }
     }
 }

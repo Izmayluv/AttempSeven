@@ -3,6 +3,7 @@ package com.gvldc.vetclinic.data
 import android.util.Log
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.gvldc.vetclinic.models.RVDataModels
 import com.gvldc.vetclinic.models.User
 import com.gvldc.vetclinic.utils.MyUtils
@@ -16,7 +17,8 @@ class Repository {
 
     private suspend fun getPets(userId: String): List<RVDataModels.ItemPet> =
         withContext(Dispatchers.IO) {
-            val petsCollection = fireStoreDb.collection("Users").document(userId).collection("Pets")
+            val petsCollection = fireStoreDb.collection("Users")
+                .document(userId).collection("Pets")
             val petsSnapshot = petsCollection.get().await()
 
             val petsList = mutableListOf<RVDataModels.ItemPet>()
@@ -46,44 +48,38 @@ class Repository {
     }
 
     fun getUserData(userId: String, callback: (User?) -> Unit) {
-        val userDocument = FirebaseFirestore.getInstance().collection("Users").document(userId)
+        val userDocument = fireStoreDb.collection("Users").document(userId)
 
-        userDocument.get()
-            .addOnSuccessListener { documentSnapshot ->
-                if (documentSnapshot.exists()) {
-                    val name = documentSnapshot.getString("name")
-                    val email = documentSnapshot.getString("email")
-                    val phone = documentSnapshot.getString("phone")
+        userDocument.get().addOnSuccessListener { documentSnapshot ->
+            if (documentSnapshot.exists()) {
+                val name = documentSnapshot.getString("name")
+                val email = documentSnapshot.getString("email")
+                val phone = documentSnapshot.getString("phone")
 
-                    if (name.isNullOrEmpty() || email.isNullOrEmpty() || phone.isNullOrEmpty()) {
-                        callback(null)
-                    } else {
-                        val user = User(name, email, phone)
-                        callback(user)
-                    }
-                } else {
-                    // Документ пользователя не существует
+                if (name.isNullOrEmpty() || email.isNullOrEmpty() || phone.isNullOrEmpty()) {
                     callback(null)
+                } else {
+                    val user = User(name, email, phone)
+                    callback(user)
                 }
-            }
-            .addOnFailureListener {
-                // Ошибка при получении данных пользователя
+            } else {
+                // Документ пользователя не существует
                 callback(null)
             }
+        }.addOnFailureListener {
+            // Ошибка при получении данных пользователя
+            callback(null)
+        }
     }
 
-    private val notifications = mutableListOf<RVDataModels>()
-
     fun getNotificationsData(userId: String, callback: (MutableList<RVDataModels>) -> Unit) {
-        val userNotificationsCollection = FirebaseFirestore.getInstance()
-            .collection("Users")
-            .document(userId)
-            .collection("Notifications")
+        val userNotificationsCollection =
+            fireStoreDb.collection("Users").document(userId)
+                .collection("Notifications")
 
-        userNotificationsCollection.get()
+        userNotificationsCollection.orderBy("time", Query.Direction.DESCENDING).get()
             .addOnSuccessListener { querySnapshot ->
 
-               // val notificationsList = mutableListOf<RVDataModels>()
                 val notificationsList = mutableListOf<RVDataModels>(
                     RVDataModels.ItemHeader(
                         "Уведомления"
@@ -97,19 +93,15 @@ class Repository {
 
                     if (title != null && message != null && time != null) {
                         val notification = RVDataModels.ItemNotification(
-                            title,
-                            message,
-                            MyUtils.timestampToString(time, "HH:mm dd MMMM")
+                            title, message, MyUtils.timestampToString(time, "HH:mm dd MMMM")
                         )
                         notificationsList.add(notification)
                     }
                 }
-
                 callback(notificationsList)
-            }
-            .addOnFailureListener {
+            }.addOnFailureListener {
                 // Ошибка при получении уведомлений пользователя
-                callback(notifications)
+                callback(mutableListOf<RVDataModels>())
             }
     }
 
@@ -118,18 +110,14 @@ class Repository {
         val userCollection = fireStoreDb.collection("Users").document(userId)
 
         val userData = hashMapOf(
-            "name" to name,
-            "email" to email,
-            "phone" to phone
+            "name" to name, "email" to email, "phone" to phone
         )
 
-        userCollection.set(userData)
-            .addOnSuccessListener {
-                Log.d("TAG", "Пользователь успешно зарегистрирован с ID: $userId")
-            }
-            .addOnFailureListener { e ->
-                Log.d("TAG", "Ошибка при регистрации пользователя: $e")
-            }
+        userCollection.set(userData).addOnSuccessListener {
+            Log.d("TAG", "Пользователь успешно зарегистрирован с ID: $userId")
+        }.addOnFailureListener { e ->
+            Log.d("TAG", "Ошибка при регистрации пользователя: $e")
+        }
     }
 
     fun createPet(
@@ -152,13 +140,11 @@ class Repository {
             "breed" to breed
         )
 
-        userPetsCollection.set(petData)
-            .addOnSuccessListener {
-                Log.d("TAG", "Питомец успешно создан с ID: $petId")
-            }
-            .addOnFailureListener { e ->
-                Log.d("TAG", "Ошибка при создании питомца: $e")
-            }
+        userPetsCollection.set(petData).addOnSuccessListener {
+            Log.d("TAG", "Питомец успешно создан с ID: $petId")
+        }.addOnFailureListener { e ->
+            Log.d("TAG", "Ошибка при создании питомца: $e")
+        }
     }
 
     fun createPetWithoutImage(
@@ -173,45 +159,32 @@ class Repository {
             fireStoreDb.collection("Users").document(userId).collection("Pets").document(petId)
 
         val petData = hashMapOf(
-            "name" to name,
-            "birthday" to birthday,
-            "species" to species,
-            "breed" to breed
+            "name" to name, "birthday" to birthday, "species" to species, "breed" to breed
         )
 
-        userPetsCollection.set(petData)
-            .addOnSuccessListener {
-                Log.d("TAG", "Питомец успешно создан с ID: $petId")
-            }
-            .addOnFailureListener { e ->
-                Log.d("TAG", "Ошибка при создании питомца: $e")
-            }
+        userPetsCollection.set(petData).addOnSuccessListener {
+            Log.d("TAG", "Питомец успешно создан с ID: $petId")
+        }.addOnFailureListener { e ->
+            Log.d("TAG", "Ошибка при создании питомца: $e")
+        }
     }
 
     fun createNotification(
-        userId: String,
-        notificationId: String,
-        title: String,
-        time: Timestamp,
-        message: String
+        userId: String, notificationId: String, title: String, time: Timestamp, message: String
     ) {
         val userNotificationCollection =
             fireStoreDb.collection("Users").document(userId).collection("Notifications")
                 .document(notificationId)
 
         val notificationData = hashMapOf(
-            "title" to title,
-            "message" to message,
-            "time" to time
+            "title" to title, "message" to message, "time" to time
         )
 
-        userNotificationCollection.set(notificationData)
-            .addOnSuccessListener {
-                Log.d("TAG", "Питомец успешно создан с ID: $notificationId")
-            }
-            .addOnFailureListener { e ->
-                Log.d("TAG", "Ошибка при создании питомца: $e")
-            }
+        userNotificationCollection.set(notificationData).addOnSuccessListener {
+            Log.d("TAG", "Питомец успешно создан с ID: $notificationId")
+        }.addOnFailureListener { e ->
+            Log.d("TAG", "Ошибка при создании питомца: $e")
+        }
     }
 
     private val promoList = mutableListOf(
@@ -235,43 +208,30 @@ class Repository {
     private val inputListHome = mutableListOf(
         RVDataModels.ItemHeader(
             "Добро пожаловать"
-        ),
-        RVDataModels.ItemLogo(
+        ), RVDataModels.ItemLogo(
             "https://docs.google.com/uc?id=1WKK29RnGQk0KMFsKgm-MbgWuy5H51s3R"
-        ),
-        RVDataModels.ItemAppointment(
+        ), RVDataModels.ItemAppointment(
             "Записаться к ветеринару",
             "https://docs.google.com/uc?id=1amDUBN2MhlmdLTvGGRtm5NfWkuO3pFdb",
-        ),
-        RVDataModels.ItemClinics(
+        ), RVDataModels.ItemClinics(
             "Наши клиники",
             "https://docs.google.com/uc?id=177g6wg-XTKWnASGEk60odgd_ZddK3_9G",
-        ),
-        RVDataModels.ItemVets(
+        ), RVDataModels.ItemVets(
             "Наши ветеринары",
             "https://docs.google.com/uc?id=1NYIWi98c7bRn6ZcvDBwHo7BpQyaOHZ-F",
-        ),
-        RVDataModels.ItemHeader(
+        ), RVDataModels.ItemHeader(
             "Акции"
-        ),
-        RVDataModels.ParentModel(
+        ), RVDataModels.ParentModel(
             promoList
-        ),
-        RVDataModels.ItemHeader(
+        ), RVDataModels.ItemHeader(
             "Новости"
-        ),
-        RVDataModels.ItemNews(
+        ), RVDataModels.ItemNews(
             title = "Праздник кошек",
-            news = "    В Санкт-Петербурге в предстоящие выходные пройдет праздник, посвященный местным кошкам. На несколько часов Конногвардейский бульвар переименуют в Котогвардейский, сообщает пресс-служба района.\n" +
-                    "   Мероприятие состоится 3 июня с 12:00 до 16:00 часов, информирует телеканал «\u200E78».\u200E В этот день бульвар превратится в обитель кошачьих. Для гостей праздника подготовили квесты, конкурсы, мастер-классы, концерты и котопарад.\n" +
-                    "   Большой городской праздник пройдет в Петербурге уже в восьмой раз. Его успели полюбить горожане и гости Северной столицы всех возрастов.",
+            news = "    В Санкт-Петербурге в предстоящие выходные пройдет праздник, посвященный местным кошкам. На несколько часов Конногвардейский бульвар переименуют в Котогвардейский, сообщает пресс-служба района.\n" + "   Мероприятие состоится 3 июня с 12:00 до 16:00 часов, информирует телеканал «\u200E78».\u200E В этот день бульвар превратится в обитель кошачьих. Для гостей праздника подготовили квесты, конкурсы, мастер-классы, концерты и котопарад.\n" + "   Большой городской праздник пройдет в Петербурге уже в восьмой раз. Его успели полюбить горожане и гости Северной столицы всех возрастов.",
             imageUrl = "https://koshka.top/uploads/posts/2021-11/1637942708_6-koshka-top-p-sidyashchei-koshki-6.jpg"
-        ),
-        RVDataModels.ItemNews(
+        ), RVDataModels.ItemNews(
             title = "Праздник кошек",
-            news = "    В Санкт-Петербурге в предстоящие выходные пройдет праздник, посвященный местным кошкам. На несколько часов Конногвардейский бульвар переименуют в Котогвардейский, сообщает пресс-служба района.\n" +
-                    "   Мероприятие состоится 3 июня с 12:00 до 16:00 часов, информирует телеканал «\u200E78».\u200E В этот день бульвар превратится в обитель кошачьих. Для гостей праздника подготовили квесты, конкурсы, мастер-классы, концерты и котопарад.\n" +
-                    "   Большой городской праздник пройдет в Петербурге уже в восьмой раз. Его успели полюбить горожане и гости Северной столицы всех возрастов.",
+            news = "    В Санкт-Петербурге в предстоящие выходные пройдет праздник, посвященный местным кошкам. На несколько часов Конногвардейский бульвар переименуют в Котогвардейский, сообщает пресс-служба района.\n" + "   Мероприятие состоится 3 июня с 12:00 до 16:00 часов, информирует телеканал «\u200E78».\u200E В этот день бульвар превратится в обитель кошачьих. Для гостей праздника подготовили квесты, конкурсы, мастер-классы, концерты и котопарад.\n" + "   Большой городской праздник пройдет в Петербурге уже в восьмой раз. Его успели полюбить горожане и гости Северной столицы всех возрастов.",
             imageUrl = "https://kot-pes.com/wp-content/uploads/2018/10/post_5bc3b9295ffdc.jpg"
         )
     )
@@ -279,8 +239,7 @@ class Repository {
     private val inputListServices = mutableListOf(
         RVDataModels.ItemHeader(
             "Выберите услугу"
-        ),
-        RVDataModels.ItemService(
+        ), RVDataModels.ItemService(
             "Первичный осмотр",
             "В ходе обследования врач выполняет осмотр. На основании полученных данных проконсультирует владельца о необходимых в дальнейшем действиях.",
             "https://zoostatus.ru/upload/zoostatus-articles-foto/pervichniy_osmotr/pervichnii_osmotr_1.jpg"
@@ -312,35 +271,10 @@ class Repository {
 
         )
 
-    private val inputListNotifications = mutableListOf(
-        RVDataModels.ItemHeader(
-            "Уведомления"
-        ),
-        RVDataModels.ItemNotification(
-            "Акция",
-            "С 15 по 20 апреля во всех клиниках ГВЛДЦ действует скидка на стрижку когтей 20%",
-            "19:41 14 апреля"
-        ),
-        RVDataModels.ItemNotification(
-            "Вакцинация",
-            "Завтра в 14:00, вы записаны на вакцинацию Майкла",
-            "12:00 12 апреля"
-        ),
-        RVDataModels.ItemNotification(
-            "Запись к ветеринару",
-            "2 апреля в 12:10, вы записаны на стрижку когтей Майкла",
-            "10:00 1 апреля"
-        ),
-    )
-
 
     fun getHomeData(): MutableList<RVDataModels> {
         return inputListHome
     }
-
-/*    fun getNotificationsData(): MutableList<RVDataModels> {
-        return inputListNotifications
-    }*/
 
     fun getServicesData(): MutableList<RVDataModels> {
         return inputListServices

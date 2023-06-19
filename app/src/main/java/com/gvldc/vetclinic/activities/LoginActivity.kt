@@ -30,10 +30,7 @@ class LoginActivity() : AppCompatActivity() {
 
         binding.apply {
 
-
-
             buttonLogin.setOnClickListener {
-
                 val email = editTextEmailAddress.text.toString().trim()
                 val password = editTextPassword.text.toString().trim()
 

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
@@ -32,6 +33,9 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
             adapter.setData(data)
         }
 
+        val notificationManager = NotificationManagerCompat.from(bindingFragmentNotifications.root.context)
+        notificationManager.cancel(123)
+
         bindingFragmentNotifications.rvNotifications.apply {
             layoutManager = LinearLayoutManager(this@NotificationsFragment.context)
             hasFixedSize()
@@ -39,6 +43,12 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
         }
 
         return bindingFragmentNotifications.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val notificationManager = NotificationManagerCompat.from(bindingFragmentNotifications.root.context)
+        notificationManager.cancel(123)
     }
 
 }
