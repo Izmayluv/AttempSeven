@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.gvldc.vetclinic.R
 import com.gvldc.vetclinic.adapters.NotificationsAdapter
 import com.gvldc.vetclinic.adapters.PetsAdapter
@@ -27,7 +28,7 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
         bindingFragmentNotifications = FragmentNotificationsBinding.inflate(layoutInflater)
 
         val adapter = NotificationsAdapter()
-        viewModel.getNotificationsData { data ->
+        viewModel.getNotificationsData(FirebaseAuth.getInstance().currentUser?.uid.toString()) { data ->
             adapter.setData(data)
         }
 

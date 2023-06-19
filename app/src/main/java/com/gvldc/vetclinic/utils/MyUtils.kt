@@ -18,6 +18,10 @@ import java.util.UUID
 class MyUtils {
 
     companion object {
+
+        fun convertLongToTimestamp(long: Long): Timestamp {
+            return Timestamp(long / 1000, 0)
+        }
         fun loadImageFromUrlFit(url: String?, imageView: ImageView) {
             GlideApp.with(imageView.context)
                 .load(url)
