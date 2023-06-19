@@ -58,6 +58,12 @@ class ViewModel : ViewModel() {
         }
     }
 
+    fun getNotificationsData(userId: String, callback: (MutableList<RVDataModels>) -> Unit) {
+        repository.getNotificationsData(userId) {
+            callback(it)
+        }
+    }
+
     fun registerUser(userId: String, name: String, email: String, phone: String) {
         repository.registerUser(userId, name, email, phone)
     }
@@ -83,12 +89,14 @@ class ViewModel : ViewModel() {
         }
     }
 
-    fun getNotificationsData(callback: (MutableList<RVDataModels>) -> Unit) {
+/*    fun getNotificationsData(callback: (MutableList<RVDataModels.ItemNotification>) -> Unit){
         viewModelScope.launch(Dispatchers.IO) {
             val data = repository.getNotificationsData()
             callback(data)
         }
-    }
+    }*/
+
+
 
     var sharedPet: RVDataModels.ItemPet? = null
 

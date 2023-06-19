@@ -1,16 +1,22 @@
 package com.gvldc.vetclinic.activities
 
 import android.app.Activity
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.messaging.FirebaseMessaging
 import com.gvldc.vetclinic.R
 import com.gvldc.vetclinic.databinding.ActivityMainBinding
 import com.gvldc.vetclinic.fragments.ChooseServiceFragment
@@ -19,6 +25,7 @@ import com.gvldc.vetclinic.fragments.HomeFragment
 import com.gvldc.vetclinic.fragments.MapsFragment
 import com.gvldc.vetclinic.fragments.NotificationsFragment
 import com.gvldc.vetclinic.fragments.UserFragment
+import com.gvldc.vetclinic.utils.NotificationService
 import com.gvldc.vetclinic.viewmodels.ViewModel
 import com.yandex.mapkit.MapKitFactory
 
@@ -31,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     private val mapsFragment = MapsFragment()
     private val chooseServiceFragment = ChooseServiceFragment()
 
+    private lateinit var pushBroadcastReceiver: BroadcastReceiver
     private lateinit var binding: ActivityMainBinding
     private val viewModel by viewModels<ViewModel>()
 
@@ -39,6 +47,29 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val messaging = FirebaseMessaging.getInstance()
+
+        messaging.token.addOnCompleteListener(){task ->
+            if (!task.isSuccessful){
+                return@addOnCompleteListener
+            }
+            val token = task.result
+            Log.d(NotificationService.TAG, "Token: $token")
+        }
+
+/*        messaging.subscribeToTopic("vetclinic")
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Подписка выполнена успешно
+                    Log.d(NotificationService.TAG, "Подписка на тему выполнена успешно")
+                } else {
+                    // Ошибка подписки
+                    Log.e(NotificationService.TAG, "Ошибка подписки на тему", task.exception)
+                }
+            }*/
+
+
 
         // Инициализация Firebase
         FirebaseApp.initializeApp(this)

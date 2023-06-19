@@ -36,6 +36,15 @@ class Repository {
             petsList
         }
 
+    suspend fun getPetsData(userId: String): MutableList<RVDataModels> {
+        val pets = getPets(userId)
+        val inputListPets = mutableListOf<RVDataModels>()
+        inputListPets.add(RVDataModels.ItemHeader("Мои питомцы"))
+        inputListPets.addAll(pets)
+        Log.d("TEST", "test")
+        return inputListPets
+    }
+
     fun getUserData(userId: String, callback: (User?) -> Unit) {
         val userDocument = FirebaseFirestore.getInstance().collection("Users").document(userId)
 
@@ -60,6 +69,47 @@ class Repository {
             .addOnFailureListener {
                 // Ошибка при получении данных пользователя
                 callback(null)
+            }
+    }
+
+    private val notifications = mutableListOf<RVDataModels>()
+
+    fun getNotificationsData(userId: String, callback: (MutableList<RVDataModels>) -> Unit) {
+        val userNotificationsCollection = FirebaseFirestore.getInstance()
+            .collection("Users")
+            .document(userId)
+            .collection("Notifications")
+
+        userNotificationsCollection.get()
+            .addOnSuccessListener { querySnapshot ->
+
+               // val notificationsList = mutableListOf<RVDataModels>()
+                val notificationsList = mutableListOf<RVDataModels>(
+                    RVDataModels.ItemHeader(
+                        "Уведомления"
+                    )
+                )
+
+                for (document in querySnapshot.documents) {
+                    val title = document.getString("title")
+                    val message = document.getString("message")
+                    val time = document.getTimestamp("time")
+
+                    if (title != null && message != null && time != null) {
+                        val notification = RVDataModels.ItemNotification(
+                            title,
+                            message,
+                            MyUtils.timestampToString(time, "HH:mm dd MMMM")
+                        )
+                        notificationsList.add(notification)
+                    }
+                }
+
+                callback(notificationsList)
+            }
+            .addOnFailureListener {
+                // Ошибка при получении уведомлений пользователя
+                callback(notifications)
             }
     }
 
@@ -132,6 +182,32 @@ class Repository {
         userPetsCollection.set(petData)
             .addOnSuccessListener {
                 Log.d("TAG", "Питомец успешно создан с ID: $petId")
+            }
+            .addOnFailureListener { e ->
+                Log.d("TAG", "Ошибка при создании питомца: $e")
+            }
+    }
+
+    fun createNotification(
+        userId: String,
+        notificationId: String,
+        title: String,
+        time: Timestamp,
+        message: String
+    ) {
+        val userNotificationCollection =
+            fireStoreDb.collection("Users").document(userId).collection("Notifications")
+                .document(notificationId)
+
+        val notificationData = hashMapOf(
+            "title" to title,
+            "message" to message,
+            "time" to time
+        )
+
+        userNotificationCollection.set(notificationData)
+            .addOnSuccessListener {
+                Log.d("TAG", "Питомец успешно создан с ID: $notificationId")
             }
             .addOnFailureListener { e ->
                 Log.d("TAG", "Ошибка при создании питомца: $e")
@@ -213,18 +289,18 @@ class Repository {
 
     private val inputListVetsInfo = mutableListOf(
         RVDataModels.VetInfo(
-        "https://animal-doc.ru/upload/iblock/262/2621f1b4cdd9c5a9beeda778d1b00fc5.png",
-        "Балашова Татьяна Алексеевна",
+            "https://animal-doc.ru/upload/iblock/262/2621f1b4cdd9c5a9beeda778d1b00fc5.png",
+            "Балашова Татьяна Алексеевна",
             "Терапевт, специалист по интенсивной терапии, эндокринолог",
-        "В клинике на Турку и Будапештской",
-        "Окончила Санкт-Петербургскую государственную академию ветеринарной медицины в 2010г. За плечами Татьяны Алексеевны более 7 лет практической деятельности, внимательного отношения к пациентам и помощи бездомным животным"
+            "В клинике на Турку и Будапештской",
+            "Окончила Санкт-Петербургскую государственную академию ветеринарной медицины в 2010г. За плечами Татьяны Алексеевны более 7 лет практической деятельности, внимательного отношения к пациентам и помощи бездомным животным"
         ),
         RVDataModels.VetInfo(
             "https://animal-doc.ru/upload/iblock/b8b/b8b05ac3b3a24b42e4ccbaeecd9e1065.png",
             "Фомин Александр Александрович",
             "Невролог, хирург, ортопед",
             "По записи в клинике на Петергофском шоссе 47к2 и на Турку д.11 к.2",
-"Бологовский аграрный колледж, диплом с отличием - Санкт-Петербургская Государственная Академия Ветеринарной Медицины (СПбГАВМ), диплом с отличием"
+            "Бологовский аграрный колледж, диплом с отличием - Санкт-Петербургская Государственная Академия Ветеринарной Медицины (СПбГАВМ), диплом с отличием"
         ),
         RVDataModels.VetInfo(
             "https://animal-doc.ru/upload/iblock/f7a/f7ae70c4e2104779779bfd6b67c97199.png",
@@ -232,9 +308,9 @@ class Repository {
             "Терапевт, хирург, специалист УЗИ, рентгенолог",
             "В клинике на Петергофском шоссе",
             "Окончил Санкт-Петербургскую государственную академию ветеринарной медицины в 2003г. С 2015 года Дмитрий Сергеевич работает в сети клиник ГВЛДЦ№1. За его плечами более 15 лет опыта работы. Дмитрий Сергеевич работает с мелкими домашними животными (кошки, собаки, хорьки), интересуется фелинологией (наука о кошках)"
-            ),
+        ),
 
-    )
+        )
 
     private val inputListNotifications = mutableListOf(
         RVDataModels.ItemHeader(
@@ -257,28 +333,20 @@ class Repository {
         ),
     )
 
-    suspend fun getPetsData(userId: String): MutableList<RVDataModels> {
-        val pets = getPets(userId)
-        val inputListPets = mutableListOf<RVDataModels>()
-        inputListPets.add(RVDataModels.ItemHeader("Мои питомцы"))
-        inputListPets.addAll(pets)
-        Log.d("TEST", "test")
-        return inputListPets
-    }
 
     fun getHomeData(): MutableList<RVDataModels> {
         return inputListHome
     }
 
-    fun getNotificationsData(): MutableList<RVDataModels> {
+/*    fun getNotificationsData(): MutableList<RVDataModels> {
         return inputListNotifications
-    }
+    }*/
 
     fun getServicesData(): MutableList<RVDataModels> {
         return inputListServices
     }
 
-    fun getVetsInfo(): MutableList<RVDataModels.VetInfo>{
+    fun getVetsInfo(): MutableList<RVDataModels.VetInfo> {
         return inputListVetsInfo
     }
 }
