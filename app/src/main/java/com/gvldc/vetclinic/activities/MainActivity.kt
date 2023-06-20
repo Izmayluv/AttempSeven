@@ -1,13 +1,9 @@
 package com.gvldc.vetclinic.activities
 
 import android.Manifest
-import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.os.Build
@@ -15,11 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
-import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -28,10 +22,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
 import com.gvldc.vetclinic.R
 import com.gvldc.vetclinic.databinding.ActivityMainBinding
-import com.gvldc.vetclinic.fragments.ChooseServiceFragment
 import com.gvldc.vetclinic.fragments.PetsFragment
 import com.gvldc.vetclinic.fragments.HomeFragment
-import com.gvldc.vetclinic.fragments.MapsFragment
 import com.gvldc.vetclinic.fragments.NotificationsFragment
 import com.gvldc.vetclinic.fragments.UserFragment
 import com.gvldc.vetclinic.utils.NotificationService
@@ -40,20 +32,23 @@ import com.yandex.mapkit.MapKitFactory
 
 class MainActivity : AppCompatActivity() {
 
+
+
+    private lateinit var binding: ActivityMainBinding
+    private val viewModel by viewModels<ViewModel>()
+
     private val petsFragment = PetsFragment()
     private val homeFragment = HomeFragment()
     private val userFragment = UserFragment()
     private val notificationsFragment = NotificationsFragment()
-    private val mapsFragment = MapsFragment()
-    private val chooseServiceFragment = ChooseServiceFragment()
 
-    private lateinit var pushBroadcastReceiver: BroadcastReceiver
-    private lateinit var binding: ActivityMainBinding
-    private val viewModel by viewModels<ViewModel>()
+    //private var isMapKitInitialized = false
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //initMapKit()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -73,20 +68,6 @@ class MainActivity : AppCompatActivity() {
 
         notificationsProcessing()
 
-
-/*        messaging.subscribeToTopic("vetclinic")
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    // Подписка выполнена успешно
-                    Log.d(NotificationService.TAG, "Подписка на тему выполнена успешно")
-                } else {
-                    // Ошибка подписки
-                    Log.e(NotificationService.TAG, "Ошибка подписки на тему", task.exception)
-                }
-            }*/
-
-
-
         // Инициализация Firebase
         FirebaseApp.initializeApp(this)
         val auth = FirebaseAuth.getInstance()
@@ -100,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
        // viewModel.showBottomNavMenu(Activity())
 
-        MapKitFactory.setApiKey("2e3ccb1e-23b2-4242-bdf3-f879bccfea7e")
+
 
         setColorStateListForBottomNavMenu(
             activeColorId =  R.color.itemMenuActive,
@@ -118,6 +99,19 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    /*private fun initMapKit() {
+        MapKitFactory.setApiKey("2e3ccb1e-23b2-4242-bdf3-f879bccfea7e")
+        MapKitFactory.initialize(this)
+    }*/
+
+/*    private fun initMapKit() {
+        if (!isMapKitInitialized) {
+            MapKitFactory.setApiKey("2e3ccb1e-23b2-4242-bdf3-f879bccfea7e")
+            MapKitFactory.initialize(this)
+            isMapKitInitialized = true
+        }
+    }*/
 
     private fun navigateToLoginScreen() {
         val intent = Intent(this, LoginActivity::class.java)
@@ -143,7 +137,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun switchingFragments(){
         binding.bottomNavigationView.selectedItemId = R.id.miHome
-
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.miHome -> {

@@ -20,6 +20,7 @@ class PetViewHolder(
             tvAge.text = MyUtils.stringToTimestamp(pet.birthDay,"dd.MM.yyyy")
                 ?.let { MyUtils.calculateAge(it) }
             tvBreed.text = pet.breed
+            tvSpecies.text = pet.species
 
             MyUtils.loadImageFromUrl(
                 pet.imageUrl,

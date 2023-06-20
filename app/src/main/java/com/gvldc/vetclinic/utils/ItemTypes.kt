@@ -13,5 +13,6 @@ object ItemTypes {
     const val NEWS = 9
     const val NOTIFICATION = 10
     const val CHILD_RECYCLER = 11
+    const val APPOINTMENT = 12
 
 }

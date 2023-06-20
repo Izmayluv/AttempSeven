@@ -43,6 +43,7 @@ class ClinicsInfoFragment : Fragment(R.layout.fragment_clinics_info) {
         mapView = bindingClinicsInfoFragment.mapViewClinicsInfo
         mapView.map.isRotateGesturesEnabled = false
 
+
         val mapKit = MapKitFactory.getInstance()
         mapKit.createUserLocationLayer(mapView.mapWindow).apply {
             isVisible = true

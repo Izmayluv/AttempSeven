@@ -50,12 +50,26 @@
                 android:id="@+id/tvAge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/roboto"
                 android:text="2 y.o."
                 android:textColor="#BF1F2A39"
                 android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvBreed" />
+
+            <TextView
+                android:id="@+id/tvSpecies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/roboto"
+                android:text="Кот"
+                android:textColor="@color/itemMenuActive"
+                android:textSize="21sp"
                 app:layout_constraintStart_toEndOf="@+id/imageViewCat"
                 app:layout_constraintTop_toBottomOf="@+id/tvBreed" />
 
@@ -66,7 +80,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/roboto"
-                android:text="Cat | Egyptian mau"
+                android:text="Египетский мау"
                 android:textColor="@color/itemMenuActive"
                 android:textSize="21sp"
                 app:layout_constraintStart_toEndOf="@+id/imageViewCat"

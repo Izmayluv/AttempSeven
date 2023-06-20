@@ -27,7 +27,7 @@
         android:id="@+id/textViewPetDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Введите дату рождения питомца"
+        android:text="Введите дату рождения"
         android:textColor="@color/itemMenuActive"
         app:layout_constraintBottom_toTopOf="@+id/editTextPetDate"
         app:layout_constraintEnd_toEndOf="@+id/editTextPetDate"
@@ -41,12 +41,22 @@
         android:inputType="text"
         android:hint="Имя"
         android:textColor="@color/itemMenuActive"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="45dp"
         tools:layout_editor_absoluteX="92dp"
         tools:layout_editor_absoluteY="158dp"
         app:layout_constraintTop_toBottomOf="@id/cardViewImage"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/textViewPetName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Введите имя питомца"
+        android:textColor="@color/itemMenuActive"
+        app:layout_constraintBottom_toTopOf="@+id/editTextPetName"
+        app:layout_constraintEnd_toEndOf="@+id/editTextPetName"
+        app:layout_constraintStart_toStartOf="@+id/editTextPetName" />
 
     <EditText
         android:id="@+id/editTextPetSpecies"
@@ -56,12 +66,22 @@
         android:inputType="text"
         android:hint="Кот"
         android:textColor="@color/itemMenuActive"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="45dp"
         tools:layout_editor_absoluteX="92dp"
         tools:layout_editor_absoluteY="230dp"
         app:layout_constraintTop_toBottomOf="@id/editTextPetName"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/textViewPetBreed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Введите породу"
+        android:textColor="@color/itemMenuActive"
+        app:layout_constraintBottom_toTopOf="@+id/editTextPetBreed"
+        app:layout_constraintEnd_toEndOf="@+id/editTextPetBreed"
+        app:layout_constraintStart_toStartOf="@+id/editTextPetBreed" />
 
     <EditText
         android:id="@+id/editTextPetBreed"
@@ -71,12 +91,22 @@
         android:ems="10"
         android:hint="Мейн-кун"
         android:textColor="@color/itemMenuActive"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="45dp"
         tools:layout_editor_absoluteX="195dp"
         tools:layout_editor_absoluteY="322dp"
         app:layout_constraintTop_toBottomOf="@id/editTextPetSpecies"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/textViewPetSpecies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Введите породу"
+        android:textColor="@color/itemMenuActive"
+        app:layout_constraintBottom_toTopOf="@+id/editTextPetSpecies"
+        app:layout_constraintEnd_toEndOf="@+id/editTextPetSpecies"
+        app:layout_constraintStart_toStartOf="@+id/editTextPetSpecies" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewImage"
@@ -117,7 +147,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Сохранить"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="24dp"
         style="@style/RegularButtonStyle"
         tools:layout_editor_absoluteX="160dp"
         tools:layout_editor_absoluteY="546dp"

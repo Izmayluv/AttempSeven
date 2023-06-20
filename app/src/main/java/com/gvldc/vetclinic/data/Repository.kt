@@ -26,11 +26,12 @@ class Repository {
                 val name = document.getString("name") ?: ""
                 val imageUrl = document.getString("imageUrl") ?: ""
                 val breed = document.getString("breed") ?: ""
+                val species = document.getString("species") ?: ""
                 val birthday = document.getTimestamp("birthday") ?: ""
                 val pet = RVDataModels.ItemPet(
                     name, imageUrl, MyUtils.timestampToString(
                         birthday as Timestamp, "dd.MM.yyyy"
-                    ), breed
+                    ), breed, species
                 )
                 petsList.add(pet)
                 Log.d("tag", "Питомцы грузятся")

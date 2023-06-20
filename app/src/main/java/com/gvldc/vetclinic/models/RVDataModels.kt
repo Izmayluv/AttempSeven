@@ -19,6 +19,7 @@ sealed class RVDataModels {
         val imageUrl: String,
         val birthDay: String,
         val breed: String,
+        val species: String
     ) : RVDataModels()
 
     data class ItemAppointment(
@@ -72,5 +73,13 @@ sealed class RVDataModels {
         val species: String,
         val receptionFrom: String,
         val education: String
+    ) : RVDataModels()
+
+    data class ItemFutureAppointment(
+        val serviceName: String,
+        val vetName: String,
+        val clinicName: String,
+        val futureAppointmentDateTime: String,
+        val date: String
     ) : RVDataModels()
 }
